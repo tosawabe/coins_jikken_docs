@@ -11,7 +11,7 @@
 サンプルコード これを参考に課題をすすめる (穴埋めあり)
 
 ~~~
-~/catkin_ws/coins_jikken/coins_jikken/sample
+~/catkin_ws/src/coins_jikken/coins_jikken/sample
 |-	sample1.cpp
 	sample2.cpp
 	sample3.cpp
@@ -20,7 +20,7 @@
 課題コード ここに記述して実験してください
 
 ~~~
-~/catkin_ws/coins_jikken/coins_jikken/src
+~/catkin_ws/src/coins_jikken/coins_jikken/src
 |-  mid_assignment.cpp	中間課題
 	fin_assignment.cpp	最終課題
 	cha_assignment.cpp	挑戦課題
@@ -147,7 +147,6 @@ M1なら
   #define ANGULAR_VEL 0.5            // ロボットの角速度 [rad/s]
   ~~~
 
-  
 
 ## Stage
 

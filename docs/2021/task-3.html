@@ -45,10 +45,10 @@
 	<h3>レーザ測域センサとは</h3>
 	<p>レーザ測域センサは、移動ロボットなどの環境認識に用いる、走査式のレーザ距離センサの総称です。
 	代表的なレーザ測域センサとしては、筑波大学知能ロボット研究室と北陽電機株式会社の共同研究で生まれたURG(アージ)シリーズ<b>(Fig. 1)</b>、SICK社[独]のLMSシリーズや、Leuze社[独]のRSシリーズ、Velodyne社[米]のHDLシリーズがあります。</p>
-	<div class="figure"><img src="2019/img/urg04lx.jpg" />Fig. 1: 北陽電機株式会社 URG-04LX</div>
+	<div class="figure"><img src="common/img/urg04lx.jpg" />Fig. 1: 北陽電機株式会社 URG-04LX</div>
 
 	<p>例えば、北陽電機株式会社のURG-04LXでは、正弦波で変調した赤外線レーザ光を発し、測定対象物からの反射光を受信し、その受信した正弦波の位相遅れを測定することで距離を測定します。そして、このレーザ光を、モータで回転させたミラーで走査することで、周囲240度の20mmから5600mmまでの距離データを取得できます。もう少し詳しい測距方法を知りたい場合は、<a href="common/document/sokuiki_sensor.pdf">追加資料</a>を参照して下さい。</p>
-	<div class="figure"><img src="2019/img/urg04lx-lrf.jpg" />Fig. 2: URG-04LXの測距原理(位相差方式)</div>
+	<div class="figure"><img src="common/img/urg04lx-lrf.jpg" />Fig. 2: URG-04LXの測距原理(位相差方式)</div>
 
 	<h3>測域センサ用のコマンドインタフェースプロトコル SCIP2.0</h3>
 	<p>北陽電機株式会社のURG-04LXでは、センサの通信プロトコルとして<a href="http://www.hokuyo-aut.co.jp/02sensor/07scanner/download/products/urg-04lx/">SCIP2.0(リンク中の「URG-04LX 通信仕様書 (SCIP 2.0)」を参照)</a>を採用しています。
@@ -244,7 +244,7 @@ $ sudo su -
 	<h2>課題２の考え方</h2>
 	<p>ロボットに壁追従させる最も簡単な方法は、以下の図のようなアルゴリズムになります。</p>
 	<p>どうしてFSコマンドを使用するのか、少し考えてみましょう。</p>
-	<img src="2019/img/wall_following.png">
+	<img src="common/img/wall_following.png">
 
 	<p>ロボットを壁追従させるのに、この方法は必ずしも良い方法ではありません。色々なアルゴリズムが考えられるので、余裕がある人はこれ以外の方法を考えてみましょう。</p>
 	<!--<p>参考例：<a href="http://hooktail.sub.jp/computPhys/least-square/index.html">最小二乗法による直線マッチング</a></p></p>-->

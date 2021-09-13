@@ -1,0 +1,168 @@
+/************* body ***********/
+body 
+{
+	text-align			: left;
+	background-color	: #FAFAFA;
+	font-size			: 16px;
+	color					: #555555;
+	margin				: 0 auto;
+	 font-family: 'Helvetica Neue', Helvetica, Arial, Roboto, 'Droid Sans', 'メイリオ', Meiryo, '?�?� ?�ゴシ�?��', 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic ProN', sans-serif;
+}
+
+
+/************* header ***********/
+/*
+#header {
+	margin				: 0 0 1.2em 0;
+	padding				: 7px 10px;
+	color					: #FFFFFF;
+	background-color	: #FF8D00;
+	clear					: both;
+	text-align			: left;
+	line-height			: 100%;
+	font-size			: 3.0em;
+	box-shadow			: gray 1.5px 1.5px 1.5px 1.5px;
+}
+*/
+
+#header {
+	margin				: 0 0 1.2em 0;
+	padding				: 7px 10px;
+	color					: #FFFFFF;
+	background-color	: #FF8D00;
+	clear					: both;
+	text-align			: left;
+	line-height			: 100%;
+	font-size			: 3.0em;
+	box-shadow			: gray 1.5px 1.5px 1.5px 1.5px;
+}
+
+#header ul {
+	margin     : 0;
+	padding    : 0;
+	list-style : none;
+	display    : inline-block;
+	float      : right;
+}
+
+#header li {
+	margin		: 0 12px 0 0;
+	padding		: 0;
+	font-size	: 15px;
+	float			: left;
+}
+
+#header a {
+	color: #FFFFFF;
+}
+
+#header p {
+	margin           : 0;
+	padding          : 0;
+	text-align       : right;
+	background-color : inherit;
+	border-style     : none;
+	border-color     : #EEEEEE;
+	border-width     : 0 0 0 0px;
+	display          : inline;
+}
+
+
+/************* footer ***********/
+#footer {
+	margin				: 3em 0 0 0;
+	padding				: 7px 10px;
+	color					: #FFFFFF;
+	background-color	: #FF8D00;
+	clear					: both;
+	text-align			: right;
+	line-height			: 100%;
+	font-size			: 0.92em;
+	box-shadow			: gray 1px 1px 1px 1px;
+}
+
+#footer ul {
+	margin     : 0;
+	padding    : 0;
+	list-style : none;
+	display    : inline-block;
+	float      : left;
+}
+
+#footer li {
+	margin 	: 0 12px 0 0;
+	padding	: 0;
+	float  	: left;
+}
+
+#footer a {
+	color:	#FFFFFF;
+}
+
+#footer p {
+	margin				: 0;
+	padding				: 0;
+	text-align			: right;
+	background-color	: inherit;
+	border-style		: none;
+	border-color		: #EEEEEE;
+	border-width		: 0 0 0 0px;
+	display				: inline;
+}
+
+
+/***********outline*************/
+#outline
+{
+	background-color: #FFFFF9;
+	width: 798px;
+	max-width: 100%;
+	min-width: 300px;
+	padding: 20px;
+	margin: 0 auto;
+	line-height: 1.5;
+}
+
+
+#outline h1 {
+	font-size: 40px;
+	font-weight: bold;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	margin-left: 10px;
+	padding-bottom: 5px;
+	border-bottom: solid 2px #FF8D00;
+	color: #555555;
+	background-color: #
+	clear: both;
+}
+
+#outline h2 {
+	font-size: 24px;
+	padding-left: 4px;
+	margin-left: 8px;
+	clear: both;
+	color: #FF8D00;
+}
+
+#outline h3 {
+	padding-left: 4px;
+	margin-left: 8px;
+	clear: both;
+}
+
+#outline p {
+	font-size: 16px;
+	color: #555555;
+	padding-left: 5px;
+	margin-left: 10px;
+	margin-bottom 5px;
+}
+
+#outline table {
+	font-size: 16px;
+	color: #555555;
+	padding-left: 5px;
+	margin-left: 10px;
+}
+

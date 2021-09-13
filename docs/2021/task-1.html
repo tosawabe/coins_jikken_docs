@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja-JP" xml:lang="ja-JP">
+	
+
+
+<head>
+<title>移動ロボットの行動プログラミング - 第1回 ロボット開発環境のセットアップ</title>
+<base href="../">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta http-equiv="content-script-type" content="text/javascript" />
+<meta http-equiv="content-style-type" content="text/css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+<link rel="stylesheet" type="text/css" href="common/HATstyle.css" charset="UTF-8" />
+<link rel="stylesheet" type="text/css" href="2017/HATJikkenStyle.css" charset="UTF-8" />
+</head>
+
+
+<body>
+
+<!--
+<div id="header">
+<a href="top/top.html"><img src="common/figure/theme.png"  alt="About" /></a>
+<ul>
+	<li><a href="2019/jikken.html">2016</a></li>
+	<li><a href="http://www.roboken.esys.tsukuba.ac.jp/">知能ロボット研究室</a></li>
+</ul>
+</div>
+-->
+	
+<div id="outline">
+	<p>2019年度 情報科学類 ソフトウェアサイエンス実験B</p>
+	<h1><a href="2019/jikken.html">移動ロボットの行動プログラミング</a><br />第1回 ロボット開発環境のセットアップ</h1>
+
+	<h2>更新履歴</h2>
+	<ul>
+		<li>2012/12/05 作業順番の修正、MacOSの場合の説明を追加</li>
+		<li>2012/12/12 YP-Spurのアップデート方法を追加</li>
+		<li>2014/9/25 ubuntu13.10用に修正</li>
+		<li>2015/10/9 ロボ研ライブラリのリポジトリをesysからiitへ変更、ttyUSBをttyACMへ変更</li>
+		<li>2015/10/11 autoreconfの追加</li>
+		<li>2017/10/11 カーネルのダウングレードの追加</li>
+	</ul>
+
+	<h2>開発環境のセットアップ手順</h2>
+	<p>$から始まっている行は、Terminalに以下のコマンドを入力する、という意味です。</p>
+	<p>別のLinuxディストリビューションを使いたいという場合は、Linux環境のセットアップ後、開発環境のセットアップまで進んで下さい。私物のLinuxマシンやMacOS X以降のマシンで行ってもかまいません。</p>
+
+
+	<h3>USBからインストーラを起動</h3>
+	<ol>
+		<li>セットアップ用USBを配布したPCに接続し、電源を入れる</li>
+		<li>Thinkpadと表示されたら<span class="warn">すぐに</span>、青色の<b>ThinkVantageボタン</b>を押す</li>
+		<li>Startup Interrupt Menuと表示されたら、<b>F12</b>(Choose a Temporary Startup Device)を押す</li>
+		<li>Boot Menuが表示されたら、USBディスクを選択して<b>Enter</b></li>
+		<li>起動するまで待つ</li>
+	</ol>
+
+	<h3>インストール</h3>
+	<ol>
+		<li>左の一覧から一番下の“日本語”を選択し、<b>Ubuntu GNOMEをインストール</b>を押す</li>
+		<li><b>インストール中にアップデートをダウンロードする</b>にはチェックをせず、<b>サードパティ―のソフトウェアをインストールする</b>にチェックして"続ける"を選択</li>
+		<li><b>wi-fiネットワークに今すぐには接続しない</b>にチェックして"続ける"を押す</li>
+		<li><b>ディスクを削除してUbuntu GNOMEをインストール</b>にチェックして"インストール"を押す</li>
+	</ol>
+
+	<h3>インストール2</h3>
+	<ol>
+		<li>インストール中、「どこに住んでいますか」はデフォルトのTokyoのまま、"続ける"を押す</li>
+		<li>キーボードレイアウトが、<b>左が日本語、右も日本語が選択されていること</b>を確認し、"続ける"を押す</li>
+		<li>「あなたの情報を入力してください」には、苗字をローマ字小文字で打つ。（コンピュータの名前とユーザー名が勝手に入力される）
+			</br>パスワードの入力と確認に、自分のパスワードを記入
+			</br><b>自動的にログインする</b>のチェック外す
+			</br><b>ログイン時にパスワードを要求する</b>にチェック
+			</br><b>ホームフォルダを暗号化する</b>のチェックは外す
+			</br>"続ける"ボタンを押す</li>
+		<li>インストールが完了すると、<b>今すぐ再起動する</b>というボタンが現れる。このボタンを押す。</li>
+		<li>画面に文字が表示されなくなったら、USBを抜く。<span class="warn">時間が少ししかないので注意</span></li>
+	</ol>
+
+
+	<h3>ネットワーク接続</h3>
+	<ol>
+		<li>ログインする</li>
+		<li>右上のネットワークアイコン（パソコンが二台重なってるようなアイコン）をクリックし、<b>utwlan-x</b>を選択</li>
+		<li><b>Username:</b>に学生証裏の13桁の番号を入力し、
+		<br/><b>Password:</b>に統一認証のパスワードを入力
+		<br/>その他の部分はそのままにしていじらずにconnectを押す。</li>
+		<li>証明書の警告画面が出るので、<b>Ignore</b>を選択</li>
+	</ol>
+	<h3>カーネルのダウングレード(ubuntu16.04)</h3>
+	<ol>
+	<li>以下のコマンドを実行
+          <div class="source_code"><pre># sudo apt-get install linux-image-4.4.0-71-generic
+# sudo apt-get install linux-headers-4.4.0-71-generic
+# sudo apt-get install linux-image-extra-4.4.0-71-generic
+	  </pre></div>
+	</li>
+	<li>apt-getが正常に終わったらPCを再起動して、grubのOS選択画面が出るのを待つ。
+OS選択画面で、“Advanced options for Ubuntu”を選択する。
+次の画面で、“Ubuntu, with Linux 4.4.0-71-generic”を選しと、Kernel 4.4.0で起する。
+	</li>
+	<li>/etc/default/grubを以下のように変更する(オプション)
+	  <div class="source_code"><pre>GRUB_DEFAULT=0を
+GRUB_DEFAULT="Ubuntu, with Linux 4.4.0-71-generic"に変更
+	  </pre></div>実行する
+	  <div class="source_code"><pre> $ sudo update-grip
+          </pre></div>
+	</li>
+	
+	</ol>
+	<h3><a name="DevelEnv">開発環境のセットアップ</a></h3>
+	<ol>
+		<li>左上の"アクティビティ"と書いてある部分にマウスカーソルを持って行くと画面が変わるので、"検索ワードを入力"のところに<b>term</b>と入力して<b>Enter</b></li>
+		<li>以下のコマンドを実行
+			<div class="source_code"><pre>
+$sudo apt-get update
+>[sudo] password for [ﾕｰｻﾞ名]:ここにパスワードを入力
+エンターを押す。
+
+$sudo apt-get install build-essential
+>[Y/n]?の後にyと打ってエンター
+
+sudo apt-get install automake libtool
+>[Y/n]?の後にyと打ってエンター
+
+sudo apt-get install git
+>[Y/n]?の後にyと打ってエンター
+		</li>
+		<li>以下のコマンドを実行
+			<div class="source_code"><pre>
+$ mkdir Platform
+$ cd Platform/
+$ git clone http://www.roboken.iit.tsukuba.ac.jp/platform/repos/yp-spur.git
+$ cd yp-spur
+$ ./configure
+$ make
+$ sudo make install
+$ cd ..
+$ git clone http://www.roboken.iit.tsukuba.ac.jp/platform/repos/yp-robot-params.git
+$ cd yp-robot-params
+$ ./configure
+$ sudo make install
+$ cd ..
+$ git clone http://www.roboken.iit.tsukuba.ac.jp/platform/repos/libscip2awd.git
+$ cd libscip2awd
+$ autoreconf -i -f
+$ ./configure
+$ make
+$ sudo make install
+$ cd ..
+			</pre></div>
+		</li>
+		<li>MacOSで作業する場合、上記の作業の前に、git, gccなどのコンパイル環境<!-- ,<a href="http://www.ftdichip.com/Drivers/VCP.htm">FTDIのドライバ</a>-->をインストールしておく必要があります.
+		</li>
+	</ol>
+
+	<h3>ロボットの接続テスト</h3>
+	<p><span class="warn">ロボットが動くので、周辺に2m程度の空間が確保できる場所で実行すること</span></p>
+	<ol>
+		<li>以下のコマンドを実行
+			<div class="source_code"><pre>$ sudo ypspur-coordinator -p ~/Platform/yp-robot-params/robot-params/[ロボットのパラメータファイル] -d /dev/ttyACM0</pre></div>
+		<p>※/dev/ttyACM0でダメなら、/dev/ttyACM1で試してみる。</p>
+		</li>
+
+		<li>別のターミナル(またはターミナルのタブ)を開いて以下のコマンドを実行(Ctrl+Shift+n、またはCtrl+Shift+t)
+			<div class="source_code"><pre>
+$ cd yp-spur/samples/
+$ ./run-test
+			</pre></div>
+		</li>
+	</ol>
+        <h3>ロボットのパラメータファイル</h3>
+        <p>パラメータファイルはロボット毎に以下のものを使用して下さい。違うパラメータを指定すると暴走します。</p>
+　　　　<dl id="robotparam">                                                                                                  
+                <dt>beego-IMK</dt><dd>beego.param</dd>                                                                                   
+	  　　　	<dt>Speego-OOK</dt><dd>speego.param</dd> 
+                <dt>Speego-SEK</dt><dd>speego.param</dd>
+	  　　　	<dt>Speego-HTT</dt><dd>speego.param</dd>
+		</dl>
+
+	<h3>アップグレード</h3>
+	<p>アップグレードには時間がかかる場合もあるので、自宅等で行ってもOKです</p>
+	<ol><li><div class="source_code">
+		<pre>
+$ sudo apt-get upgrade
+		</pre>
+	</div></li></ol>
+
+	<h3>その他の準備(任意)</h3>
+	<p>アクティビティ(左上にマウスカーソルを持って行くと現れる)画面内に、テキストエディタやターミナルなどのアプリケーションが入っています。よく使う物は、ドラッグアンドドロップで、アクティビティ画面左側のランチャに追加しておくと便利です。</p>
+
+	<h2>課題</h2>
+	<p>今回は課題はありません。進めたい人は、来週以降の内容を行ってもかまいません。</p>
+
+
+	<h2><a name="update">YP-Spurのアップデート</a></h2>
+	<p>以下のコマンドで、アップデートができます。</p>
+	<div class="source_code"><pre>
+$ cd ~/Platform/yp-spur
+$ git reset --hard
+$ git pull
+$ make clean
+$ make
+$ sudo make install
+	</pre></div>
+	<p>ロボット側のファームウェアの書き換えが必要な場合もあるので注意して下さい。</p>
+
+	
+	<h2><a name="checkout">YP-Spurの入れ替え</a></h2>
+		  <p>ロボ研のリポジトリのバージョンではUbuntu16.04での動作が確約されていない。よって~/Platform内のyp-spurディレクトリを削除し、チェックアウトコマンドで動作確認済みのバージョン指定してYP-Spurを取得。</p>
+		  <div class="source_code"><pre>
+$ sudo apt-get install cmake cmake-qt-gui cmake-curses-gui
+$ cd ~/Platform/
+$ rm -rf yp-spur
+$ git clone https://github.com/openspur/yp-spur
+$ cd yp-spur/
+$ git checkout -b f285c515f809ecb6f6ecd3be9ae8b9cb26320d46
+$ mkdir build && cd build
+$ cmake ..
+$ make
+$ sudo make install
+		  </pre></div>
+</div>
+  
+
+
+<!--
+<div id="footer">
+<ul>
+	<li><a href="top/top.html">top</a></li>
+	<li><a href="profile/profile.html">profile</a></li>
+	<li><a href="research/research.html">research</a></li>
+	<li><a href="2016/jikken.html">2016</a></li>
+	<li><a href="http://www.roboken.esys.tsukuba.ac.jp">知能ロボット研究室</a></li>
+</ul>
+Copyright &copy 2014 Kohei HATTORI All Rights Reserved.
+</div><!-- /footer -->
+  
+ </body>
+</html>

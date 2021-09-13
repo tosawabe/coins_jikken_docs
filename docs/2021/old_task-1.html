@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja-JP" xml:lang="ja-JP">
+	
+
+
+<head>
+<title>移動ロボットの行動プログラミング - 第1回 ロボット開発環境のセットアップ</title>
+<base href="../">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta http-equiv="content-script-type" content="text/javascript" />
+<meta http-equiv="content-style-type" content="text/css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+<link rel="stylesheet" type="text/css" href="common/HATstyle.css" charset="UTF-8" />
+<link rel="stylesheet" type="text/css" href="lectures/HATJikkenStyle.css" charset="UTF-8" />
+</head>
+
+
+<body>
+
+<div id="header">
+<a href="top/top.html"><img src="common/figure/theme.png"  alt="About" /></a>
+<ul>
+	<li><a href="top/top.html">top</a></li>
+	<li><a href="profile/profile.html">profile</a></li>
+	<li><a href="research/research.html">research</a></li>
+	<li><a href="lectures/jikken.html">lectures</a></li>
+	<li><a href="http://www.roboken.esys.tsukuba.ac.jp/">知能ロボット研究室</a></li>
+</ul>
+</div>
+
+	
+<div id="outline">
+	<p>2014年度 情報学類 情報科学実験III</p>
+	<h1><a href="lectures/jikken.html">移動ロボットの行動プログラミング</a><br />第1回 ロボット開発環境のセットアップ</h1>
+
+	<h2>更新履歴</h2>
+	<ul>
+		<li>2012/12/05 作業順番の修正、MacOSの場合の説明を追加</li>
+		<li>2012/12/12 <a href="#update">YP-Spurのアップデート方法</a>を追加</li>
+	</ul>
+
+	<h2>開発環境のセットアップ手順</h2>
+	<p>$から始まっている行は、Terminalに以下のコマンドを入力する、という意味です。</p>
+	<p>別のLinuxディストリビューションを使いたいという場合は、Linux環境のセットアップ後、<a href="#DevelEnv">開発環境のセットアップ</a>まで進んで下さい。私物のLinuxマシンやMacOS X以降のマシンで行ってもかまいません。</p>
+
+
+	<h3>USBからインストーラを起動</h3>
+	<ol>
+		<li>セットアップ用USBを配布したPCに接続し、電源を入れる</li>
+		<li>Thinkpadと表示されたら<span class="warn">すぐに</span>、青色の<b>ThinkVantageボタン</b>を押す</li>
+		<li>Startup Interrupt Menuと表示されたら、<b>F12</b>(Choose a Temporary Startup Device)を押す</li>
+		<li>Boot Menuが表示されたら、USBディスクを選択して<b>Enter</b></li>
+		<li>起動するまで待つ</li>
+	</ol>
+
+	<h3>インストール</h3>
+	<ol>
+		<li><b>Install to Hard Drive</b>を選択</li>
+		<li>使いたいキーボードの言語を選択</li>
+		<li><b>Basic Storage Devices</b>を選択</li>
+		<li>Hostnameは特に変更する必要なし</li>
+		<li>タイムゾーンで<b>Tokyo, Asia</b>を選択して</li>
+		<li>Root Passwordを設定 <div class="warn">注：学内ネットワークに接続するPCなので、十分に強度の高いパスワードを設定すること</div></li>
+		<li><b>Use All Space</b>を選択して<b>Next</b></li>
+		<li>Identifierが<b>sda</b>となっているHDDを選択して<b>⇒</b>ボタンをクリックし、<b>Next</b></li>
+		<li>ディスク消去の確認メッセージが出るので、<b>Write Changes to Disk</b></li>
+		<li>完了まで待って<b>Reboot</b></li>
+	</ol>
+
+	<h3>インストール2</h3>
+	<ol>
+		<li>画面の指示に従って、Create Userのページまで進み、<b>名前</b>、<b>ユーザ名(アルファベット)</b>、<b>個人パスワード</b>を入力し、<b>Add to Administrators groupにチェック</b></li
+		<li>Date and Timeのページで、<b>Synchronize date and time over the network</b>にチェック</li>
+		<li>Hardware Profileのページで、<b>Finish</b>、確認画面で<b>No, do not send.</b>を選択(Send Profileを選択してもよい)</li>
+	</ol>
+
+	<h3>日本語設定(任意)</h3>
+	<ol>
+		<li>右上の<b>ユーザ名ボタン</b>から<b>System Setting</b>、<b>Region and Language</b>を開く</li>
+		<li><b>+</b>ボタンから<b>Japanese</b>を選択して、いったんログアウトする</li>
+		<li><b>標準フォルダーの名前を…</b>という画面が出たら、<b>次回から表示しない</b>をチェックして、<b>古い名前のままにする</b>を選択</li>
+		<li>以後、日本語入力切り替えは<b>Ctrl+Space</b>で行える</b></li>
+	</ol>
+
+	<h3>ネットワーク接続</h3>
+	<ol>
+		<li>ログインする</li>
+		<li>右上のネットワークアイコンをクリックし、<b>utwlan-x</b>を選択</li>
+		<li><b>Username:</b>に学生証裏の13桁の番号を入力し、統一認証のパスワードを入力</li>
+		<li>証明書の警告画面が出るので、<b>Ignore</b>を選択</li>
+	</ol>
+
+	<h3>細かい設定(任意)</h3>
+	<ol>
+		<li>左上にマウスカーソルを持って行くと画面が変わるので、<b>term</b>と入力して<b>Enter</b></li>
+		<li>以下のコマンドを実行
+			<div class="source_code"><pre>
+$ sudo yum install gnome-tweak-tool
+$ gnome-tweek-tool
+			</pre></div>
+		</li>
+		<li><b>デスクトップ</b>を選択し、<b>Have file manager handle the desktop</b>をチェックすると、デスクトップにファイルが置けるようになる</li>
+	</ol>
+
+	<h3><a name="DevelEnv">開発環境のセットアップ</a></h3>
+	<ol>
+		<li>左上にマウスカーソルを持って行くと画面が変わるので、<b>term</b>と入力して<b>Enter</b></li>
+		<li>以下のコマンドを実行
+			<div class="source_code"><pre>
+$ sudo yum groupinstall "Development Tools"
+$ sudo yum install gnuplot readline-devel</pre></div>
+		</li>
+		<li>以下のコマンドを実行
+			<div class="source_code"><pre>
+$ mkdir Platform
+$ cd Platform/
+$ git clone http://www.roboken.esys.tsukuba.ac.jp/platform/repos/yp-spur.git
+$ cd yp-spur
+$ ./configure
+$ make
+$ sudo make install
+$ cd ..
+$ git clone http://www.roboken.esys.tsukuba.ac.jp/platform/repos/yp-robot-params.git
+$ cd yp-robot-params
+$ ./configure
+$ sudo make install
+$ cd ..
+$ git clone http://www.roboken.esys.tsukuba.ac.jp/platform/repos/libscip2awd.git
+$ cd libscip2awd
+$ ./configure
+$ make
+$ sudo make install
+$ cd ..
+			</pre></div>
+		</li>
+		<li>MacOSで作業する場合、上記の作業の前に、git, gccなどのコンパイル環境, <a href="http://www.ftdichip.com/Drivers/VCP.htm">FTDIのドライバ</a>をインストールしておく必要があります.
+		</li>
+	</ol>
+
+	<h3>ロボットの接続テスト</h3>
+	<p><span class="warn">ロボットが動くので、周辺に2m程度の空間が確保できる場所で実行すること</span></p>
+	<ol>
+		<li>以下のコマンドを実行
+			<div class="source_code"><pre>$ ypspur-coordinator -p [ロボットの型式].param -d /dev/ttyUSB0</pre></div></li>
+		<li>別のターミナル(またはターミナルのタブ)を開いて以下のコマンドを実行(Ctrl+Shift+n、またはCtrl+Shift+t)
+			<div class="source_code"><pre>
+$ cd yp-spur/samples/
+$ ./run-test
+			</pre></div>
+		</li>
+	</ol>
+
+	<h3>Fedoraのアップデート</h3>
+	<p>アップデートには時間がかかる場合もあるので、自宅等で行ってもOKです</p>
+	<ol><li><div class="source_code">
+		<pre>
+$ sudo yum update
+		</pre>
+	</div></li></ol>
+
+	<h3>その他の準備(任意)</h3>
+	<p>アクティビティ(左上にマウスカーソルを持って行くと現れる)画面内に、テキストエディタやターミナルなどのアプリケーションが入っています。よく使う物は、ドラッグアンドドロップで、アクティビティ画面左側のランチャに追加しておくと便利です。</p>
+
+	<h2>課題</h2>
+	<p>今回は課題はありません。進めたい人は、来週以降の内容を行ってもかまいません。</p>
+
+
+	<h2><a name="update">YP-Spurのアップデート</a></h2>
+	<p>以下のコマンドで、アップデートができます。</p>
+	<div class="source_code"><pre>
+$ cd ~/Platform/yp-spur
+$ git reset --hard
+$ git pull
+$ make clean
+$ make
+$ sudo make install
+	</pre></div>
+	<p>ロボット側のファームウェアの書き換えが必要な場合もあるので注意して下さい。</p>
+	
+	
+</div>
+  
+  
+<div id="footer">
+<ul>
+	<li><a href="top/top.html">top</a></li>
+	<li><a href="profile/profile.html">profile</a></li>
+	<li><a href="research/research.html">research</a></li>
+	<li><a href="lectures/jikken.html">lectures</a></li>
+	<li><a href="http://www.roboken.esys.tsukuba.ac.jp">知能ロボット研究室</a></li>
+</ul>
+Copyright &copy 2014 Kohei HATTORI All Rights Reserved.
+</div><!-- /footer -->
+  
+ </body>
+</html>

@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja-JP" xml:lang="ja-JP">
+	
+	
+<head>
+<title>移動ロボットの行動プログラミング - URGセンサデータの可視化</title>
+<base href="../">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta http-equiv="content-script-type" content="text/javascript" />
+<meta http-equiv="content-style-type" content="text/css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+<link rel="stylesheet" type="text/css" href="common/HATstyle.css" charset="UTF-8" />
+<link rel="stylesheet" type="text/css" href="2017/HATJikkenStyle.css" charset="UTF-8" />
+</head>
+
+
+
+<body>
+<!--
+<div id="header">
+<a href="top/top.html"><img src="common/figure/theme.png"  alt="About" /></a>
+<ul>
+	<li><a href="top/top.html">top</a></li>
+	<li><a href="profile/profile.html">profile</a></li>
+	<li><a href="research/research.html">research</a></li>
+	<li><a href="2016/jikken.html">2016</a></li>
+	<li><a href="http://www.roboken.esys.tsukuba.ac.jp/">知能ロボット研究室</a></li>
+</ul>
+</div>
+-->
+	
+<div id="outline">
+	<p>2017年度 情報科学類 ソフトウェアサイエンス実験B</p>
+	<h1><a href="2017/jikken.html">移動ロボットの行動プログラミング</a><br/>URGセンサデータの可視化</h1>
+  	
+  
+	<h2>gnuplotを用いた測域センサデータの可視化</h2>
+	<p>以下のソースコードを用いると、gnuplotでセンサデータをリアルタイムに可視化することができます。</br>
+           gnuplotをインストールした上で利用してください。   
+        </p>
+	
+	
+	<div class="source_code"><pre>
+#include &ltstdio.h&gt
+#include &ltmath.h&gt
+#include &ltunistd.h&gt
+#include &ltsignal.h&gt
+#include &ltscip2awd.h&gt
+
+int gIsShuttingDown;
+
+void ctrl_c(int aStatus) {
+  /* exit loop */
+  gIsShuttingDown = 1;
+  signal(SIGINT, NULL);
+}
+
+int main(int argc, char **argv) {
+  /* variables */
+  int ret;
+  S2Port   *urg_port;   /* port */
+  S2Sdd_t   urg_buff;   /* buffer */
+  S2Scan_t *urg_data;   /* pointer to buffer */
+  S2Param_t urg_param;  /* parameter */
+
+  /* set Ctrl-c function */
+  signal(SIGINT, ctrl_c);
+
+  /* check argument */
+  if( argc < 2 ) {
+    fprintf(stderr, "ERORR: missing device operand\n");
+    fprintf(stderr, "USAGE: %s <device>\n", argv[0]);
+    fprintf(stderr, " e.g.: %s /dev/ttyACM0\n", argv[0]);
+    return 1;
+  }
+
+  /* open port */
+  urg_port = Scip2_Open(argv[1], B115200);
+  if(urg_port == 0) {
+    fprintf(stderr, "ERORR: cannot open %s\n", argv[1]);
+    return 1;
+  }
+  fprintf(stdout, "port opened\n");
+
+  /* init buffer */
+  S2Sdd_Init(&urg_buff);
+
+  /* get paramerter */
+  Scip2CMD_PP(urg_port, &urg_param);
+
+  /* scan start */
+  // Scip2CMD_StartMS(urg_port, 44, 725, 1, 0, 0, &urg_buff, SCIP2_ENC_3BYTE);
+  ret = Scip2CMD_StartMS(urg_port, urg_param.step_min, urg_param.step_max, 1, 0, 0, &urg_buff, SCIP2_ENC_3BYTE );
+  if(ret == 0) {
+    fprintf(stderr, "ERROR: Scip2CMD_StartMS\n");
+    return 1;
+  }
+  fprintf(stdout, "scan started\n");
+
+  /* open pipe to gnuplot */
+  FILE *fp = popen("gnuplot -noraise", "w");
+  if(fp == NULL) {
+    fprintf(stderr, "ERROR: popen\n");
+    return 1;
+  }
+  fprintf(stdout, "pipe opened\n");
+
+  fputs("set terminal x11\n", fp);   /* drawing destination */
+  fputs("set grid\n", fp);  /* draw grid */
+  fputs("set mouse\n", fp);  /* use mouse */
+  fputs("set xlabel \"y [m]\"\n", fp);  /* label of x-axis */
+  fputs("set ylabel \"x [m]\"\n", fp);  /* label of y-axis */
+  fputs("set xrange [-6:6] reverse\n", fp);  /* range of x-axis */
+  fputs("set yrange [-6:6]\n", fp);  /* range of y-axis */
+  fputs("set size ratio -1\n", fp);  /* aspect ratio */
+  fputs("unset key\n", fp);  /* hide graph legends */
+
+  /* main loop */
+  gIsShuttingDown = 0;
+  while(!gIsShuttingDown) {
+    int i;
+    double x, y, rad;
+
+    /* lock buffer */
+    ret = S2Sdd_Begin(&urg_buff, &urg_data);
+
+    if(ret > 0) {
+      fputs("plot '-'\n", fp);
+      for(i = 0; i < urg_data->size; ++i) {
+        if(urg_data->data[i] < 20) { /* error code */
+          continue;
+        }
+      	rad = (2 * M_PI / urg_param.step_resolution) * (i + urg_param.step_min - urg_param.step_front);
+        x = urg_data->data[i] * cos(rad) / 1000.0;
+        y = urg_data->data[i] * sin(rad) / 1000.0;
+        fprintf(fp, "%f %f\n", y, x);
+      }
+      fputs("e\n", fp);
+
+      /* unlock buffer */
+      S2Sdd_End(&urg_buff);
+
+      /* wait 90 ms (URG-04LX 1scan = 100 ms) */
+      usleep(90000);
+    } else if(ret == -1) {
+      fprintf(stderr, "ERROR: S2Sdd_Begin\n");
+      break;
+    } else {
+      usleep(100);
+    }
+  }
+
+  /* close pipe */
+  pclose(fp);
+  fprintf(stdout, "pipe closed\n");
+
+  /* scan stop */
+  ret = Scip2CMD_StopMS(urg_port, &urg_buff);
+  if(ret == 0) {
+    fprintf(stderr, "ERROR: Scip2CMD_StopMS\n");
+    return 1;
+  }
+  fprintf(stdout, "scan stopped\n");
+
+  /* destruct buffer */
+  S2Sdd_Dest(&urg_buff);
+
+  /* close port */
+  Scip2_Close(urg_port);
+  fprintf(stdout, "port closed\n");
+}
+	</pre></div>
+
+</div>
+  
+<!--  
+<div id="footer">
+<ul>
+	<li><a href="top/top.html">top</a></li>
+	<li><a href="profile/profile.html">profile</a></li>
+	<li><a href="research/research.html">research</a></li>
+	<li><a href="2016/jikken.html">2016</a></li>
+	<li><a href="http://www.roboken.esys.tsukuba.ac.jp">知能ロボット研究室</a></li>
+</ul>
+Copyright &copy 2014 Kohei HATTORI All Rights Reserved.
+</div><!-- /footer -->
+  
+ </body>
+</html>

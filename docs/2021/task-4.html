@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja-JP" xml:lang="ja-JP">
+	
+	
+<head>
+<title>移動ロボットの行動プログラミング - 第4回 オドメトリと座標系</title>
+<base href="../">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta http-equiv="content-script-type" content="text/javascript" />
+<meta http-equiv="content-style-type" content="text/css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+<link rel="stylesheet" type="text/css" href="common/HATstyle.css" charset="UTF-8" />
+<link rel="stylesheet" type="text/css" href="2019/HATJikkenStyle.css" charset="UTF-8" />
+</head>
+
+
+<body>
+
+
+<!--
+<div id="header">
+<a href="top/top.html"><img src="common/figure/theme.png"  alt="About" /></a>
+<ul>
+	<li><a href="2019/jikken.html">2019</a></li>
+	<li><a href="http://www.roboken.esys.tsukuba.ac.jp/">知能ロボット研究室</a></li>
+</ul>
+</div>
+-->
+	
+<div id="outline">
+	<p>2019年度 情報科学類 ソフトウェアサイエンス実験B</p>
+	<h1><a href="2019/jikken.html">移動ロボットの行動プログラミング</a><br />第4回 オドメトリと座標系</h1>
+
+	<h2>更新履歴</h2>
+	<ul>
+		<li>2012/12/10 課題を改訂、第3回・第4回の順序を変更</li>
+	</ul>
+
+	<h2>講義資料</h2>
+	<ul>
+		<li><a href="2019/document/odometry_and_coordinate.pdf">オドメトリと座標系</a></li>
+	</ul>
+
+<h2>課題</h2>
+<p>以下のソースコードをベースに、URGのデータをセンサ自身の座標系(FS座標系+位置のオフセット)から、世界座標系(GL座標系)に変換するプログラムを作成して下さい。</p>
+<div class="source_code">
+<pre>/*
+ * ロボット-センサ座標系変換サンプルプログラム
+ *   Original: 2011/04/19 Taku Shikina
+ *   Modified: 2012/12/10 Atsushi Watanabe
+ */
+
+/*--------------*/
+// ライブラリ
+/*--------------*/
+#include &lt;stdio.h&gt;                         // printfなどの入出力関数
+#include &lt;stdlib.h&gt;                        // mallocとfreeやexitなど
+#include &lt;math.h&gt;                          // 数学関数
+#include &lt;signal.h&gt;                        // シグナル
+
+#include &lt;ypspur.h&gt;                        // spur用ライブラリ
+#include &lt;scip2awd.h&gt;                      // AWDのURGライブラリ
+
+int g_escape;
+
+/*=====================================================*/
+// 関数名　　：ctrlc
+// 機能概要　：シグナルハンドラの設定．Ctrl+Cでプログラムを終了させる
+/*=====================================================*/
+void ctrlC( int aStatus )
+{
+    signal( SIGINT, NULL );
+    g_escape = 1;                                // 終了予約
+}
+
+void setctrlC(  )
+{
+    signal( SIGINT, ctrlC );
+}
+
+/**************************/
+// メインプログラム
+/**************************/
+int main( int aArgc, char **aArgv )
+{
+    int ret;
+    int i;
+
+    S2Port *urgPort;                            // デバイスファイル名
+    S2Sdd_t urgBuf;                             // データを確保するバッファ
+    S2Scan_t *urgData;                          // バッファへのポインタ
+    S2Param_t urgParam;                         // URGのパラメータを確保
+
+    if( aArgc &lt; 2 )
+    {
+        fprintf( stderr, "USAGE: %s /dev/ttyACM0\n", aArgv[0] );
+        return 0;
+    }
+    g_escape = 0;
+    setctrlC(  );                               // シグナルハンドラの設定
+
+    /**********************spur関連****************************/
+    ret = Spur_init(  );                        // 初期化
+    if( ret &lt;= 0 )
+    {
+        fprintf( stderr, "ERROR: Failed to open yp-spur.\n" );
+        return 0;
+    }
+    Spur_set_vel( 0.15 );                       // 最大速度0.15m/sに設定
+    Spur_set_accel( 1.0 );                      // 加速度1.0m/sに設定
+    Spur_set_angvel( 0.25 );                    // 最大角速度0.25rad/sに設定
+    Spur_set_angaccel( 2.0 );                   // 各加速度2.0rad/ssに設定
+    Spur_set_pos_GL( 0, 0, 0 );                 // スタート地点を原点にGL座標を設定
+
+    /*********************************************************/
+
+    /**********************URG関連****************************/
+    /* ポートオープン */
+    urgPort = Scip2_Open( aArgv[1], B0 );       // デバイス名,ボーレート設定
+
+    if( urgPort == 0 )
+    {
+        fprintf( stderr, "ERROR: Failed to open device. %s\n", aArgv[1] );
+        return 0;
+    }
+    fprintf( stderr, "Port opened\n" );
+
+    /* バッファの初期化 */
+    S2Sdd_Init( &amp;urgBuf );
+    fprintf( stderr, "Buffer initialized\n" );
+
+    /* URGパラメータの読み出し */
+    Scip2CMD_PP( urgPort, &amp;urgParam );
+
+    /* 垂れ流しモードの開始 */
+    Scip2CMD_StartMS( urgPort, urgParam.step_min, urgParam.step_max, 1, 0, 0, 
+                      &amp;urgBuf, SCIP2_ENC_3BYTE );
+
+    /* 定数の計算 */
+    double resolution = 2.0 * M_PI / urgParam.step_resolution;
+
+    /********************************************************/
+
+    /*************ロボットの座標を考慮したURGデータの使用***************/
+
+    Spur_free( );
+    
+    while( !g_escape )
+    {
+
+        /* 測位データの取り出し */
+        ret = S2Sdd_Begin( &amp;urgBuf, &amp;urgData );
+
+        if( ret &gt; 0 )
+        {
+            double d, theta;                    // (mm), (rad) URGの生データ（極座標系）
+            double x_sensor, y_sensor;          // (m) URGのデータ（センサ座標系）
+            double x_fs, y_fs;                  // (m) FS座標系のURGのデータ（ロボット座標系）
+            double x_gl, y_gl;                  // (m) GL座標系のURGのデータ（世界座標系）
+            double pos_x_gl, pos_y_gl, pos_theta_gl; // (m) ,(rad) GL座標系のロボットの位置
+
+            // GL座標系のロボットの位置（世界座標系）
+
+            // ロボットの現在位置を取得
+            Spur_get_pos_GL( &amp;pos_x_gl, &amp;pos_y_gl, &amp;pos_theta_gl );
+
+            // センサデータをGL座標系に張り付けて出力
+            for ( i = 0; i &lt; urgData-&gt;size; i++ )
+            {
+                // 極座標系のデータの取得
+                d = urgData-&gt;data[i];
+                theta = ( double )( urgParam.step_min + i - urgParam.step_front )
+                           * resolution;
+
+                if( d &lt; urgParam.dist_min || d &gt; urgParam.dist_max )
+                    continue;
+
+                // 極座標系からセンサ座標系への変換
+                x_sensor = d * cos( theta ) * 0.001;    // mm -&gt; m
+                y_sensor = d * sin( theta ) * 0.001;    // mm -&gt; m
+
+                // センサ座標系からFS座標系への変換
+                x_fs = x_sensor + 使用しているロボットの移動中心とセンサ中心のオフセットを書く;
+                y_fs = y_sensor + 使用しているロボットの移動中心とセンサ中心のオフセットを書く;
+                // y_fs = -y_sensor; // URGがひっくり返っているときは反転させる。
+                // URGの反転は３次元の座標変換で表すことができる
+                //  (ロール方向に180度回転していると考えられる)が、
+                //  今回の講義では２次元のみの座標変換を扱うので直接変換してしまう。
+
+                // FS座標系からGL座標系への変換
+                x_gl = ここに座標変換を書く;
+                y_gl = ここに座標変換を書く;
+
+                // 出力 
+                printf( "%f\t%f\n", x_gl, y_gl );
+            }
+
+            S2Sdd_End( &amp;urgBuf );            // アンロック(読み込み終了)
+
+        }
+        else if( ret &lt; 0 )
+        {                                        // 戻り値が負だとエラー
+
+            fprintf( stderr, "ERROR: Fatal error occurred.\n" );
+            break;
+        }
+        else
+        {
+            usleep( 10000 );                     // 測域データに新しいデータがない
+        }
+
+    }
+
+    /***********************************************/
+
+    /************終了処理***************/
+
+    // YP-Spurの停止 
+    Spur_stop(  );
+
+    // URGの終了
+    ret = Scip2CMD_StopMS( urgPort, &amp;urgBuf );    // URGの測域停止
+    if( ret == 0 )
+    {
+        fprintf( stderr, "ERROR: StopMS failed.\n" );
+        return 0;
+    }
+    fprintf( stderr, "Stopped\n" );
+
+    S2Sdd_Dest( &amp;urgBuf );                        // バッファの解放
+    fprintf( stderr, "Buffer destructed\n" );
+
+    Scip2_Close( urgPort );                           // ポートを閉じる
+    fprintf( stderr, "Port closed\n" );
+
+    return 0;
+}
+</pre>
+</div>
+<p>
+プログラムを実行すると、ロボットはフリー状態になるので、手でロボットを押して移動させて下さい。
+また、その際には以下のように、リダイレクトでセンサデータをファイルに書き出して下さい。
+</p>
+<div class="source_code">
+<pre>
+$ ./test > data.dat
+</pre>
+</div>
+<p>
+<a href="2019/logging.html">ロボット軌跡の保存</a>の方法を参考に、gnuplotを用いて座標変換したセンサデータをプロットして下さい。また、ロボットの走行軌跡も同時にプロットしてみて下さい。
+うまくいっていれば、周辺の壁の地図のような図ができるはずです。</p>
+
+
+<h2>課題ができたら</h2>
+<p>座標変換したセンサデータを、TAに見てもらってください。</p>
+
+	
+</div>
+  
+<!--  
+<div id="footer">
+<ul>
+	<li><a href="top/top.html">top</a></li>
+	<li><a href="profile/profile.html">profile</a></li>
+	<li><a href="research/research.html">research</a></li>
+	<li><a href="2016/jikken.html">2016</a></li>
+	<li><a href="http://www.roboken.esys.tsukuba.ac.jp">知能ロボット研究室</a></li>
+</ul>
+Copyright &copy 2014 Kohei HATTORI All Rights Reserved.
+</div><!-- /footer -->
+  
+ </body>
+</html>

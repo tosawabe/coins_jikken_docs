@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja-JP" xml:lang="ja-JP">
+	
+	
+<head>
+<title>移動ロボットの行動プログラミング - 測域センサデータの表示</title>
+<base href="../">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta http-equiv="content-script-type" content="text/javascript" />
+<meta http-equiv="content-style-type" content="text/css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+<link rel="stylesheet" type="text/css" href="common/HATstyle.css" charset="UTF-8" />
+<link rel="stylesheet" type="text/css" href="2017/HATJikkenStyle.css" charset="UTF-8" />
+</head>
+
+
+
+<body>
+<!--
+<div id="header">
+<a href="top/top.html"><img src="common/figure/theme.png"  alt="About" /></a>
+<ul>
+	<li><a href="top/top.html">top</a></li>
+	<li><a href="profile/profile.html">profile</a></li>
+	<li><a href="research/research.html">research</a></li>
+	<li><a href="2016/jikken.html">2016</a></li>
+	<li><a href="http://www.roboken.esys.tsukuba.ac.jp/">知能ロボット研究室</a></li>
+</ul>
+</div>
+-->
+	
+<div id="outline">
+	<p>2017年度 情報科学類 ソフトウェアサイエンス実験B</p>
+	<h1><a href="2017/jikken.html">移動ロボットの行動プログラミング</a><br/>測域センサデータの表示</h1>
+  	
+  
+	<h2>インストール</h2>
+	<p>最新版は<a href="2017/logging/odometry-logger-0.2.tar.gz">odometry-logger-0.2.tar.gz</a>です。(2014/9/23 17:47更新)</p>
+	
+	
+	<div class="source_code"><pre>
+$ cd /tmp
+$ wget http://www.roboken.esys.tsukuba.ac.jp/~atusi_w/jikken/logging/odometry-logger-0.2.tar.gz
+$ tar xzfv odometry-logger-0.2.tar.gz
+$ cd odometry-logger-0.2
+$ make
+$ sudo make install
+	</pre></div>
+	
+	<p>wgetが見つからないというエラーが出る場合は、以下のコマンドでwgetをインストールしてからもう一度やり直して下さい。</p>
+	
+	<div class="source_code"><pre>
+$ sudo apt-get install wget
+	</pre></div>
+
+	<h2>使い方</h2>
+	<p>作ったプログラムの名前が test のとき、以下のように使用すると test.dat というロボットのオドメトリが記録されたファイルが生成されます(プログラム名.dat)。</p>
+	<div class="source_code"><pre>
+$ odmlog ./test
+	</pre></div>
+
+	<h2>グラフの作成</h2>
+	<p>gnuplotで以下の作業をするとロボットの軌跡が表示されます。(ypspur-coordinatorを起動した時点を基準とする軌跡) test.datの部分を自分のファイル名に置き換えてください。</p>
+	
+	<div class="source_code"><pre>
+$gnuplot
+//ターミナル上でgnuplotが立ち上がります
+
+gnuplot> set size ratio -1 //各軸の比を対照にする
+gnuplot> set xlabel "y" //軸の名前の指定
+gnuplot> set ylabel "x" 
+gnuplot> plot "test.dat" u (-$2):1 w l title "Odometry" //グラフの描画
+
+gnuplot> exit //gnuplotを終了
+	</pre></div>
+	
+	<p>描画方法についてもっと詳しく使い方を知りたい方は
+	<a href="http://lagendra.s.kanazawa-u.ac.jp/ogurisu/manuals/gnuplot-intro/">ここ等</a>
+	を参考にしてください。</p>
+
+	<h2>画像の保存方法</h2>
+	<p>gnuplotで描画した軌跡は、画像ファイルとして保存できます。レポートには、それぞれの実験ついてこの軌跡の画像ファイルを乗せてください。</p>
+	<div class="source_code"><pre>
+//グラフをプロットする前に以下の2行を打つと、指定したファイル名で画像が保存されます。
+gnuplot> set terminal png //png形式で保存すると明示。エラーが出ることがあるが無視
+gnuplot> set output "test.png" //ファイル名の指定
+
+gnuplot> set size ratio -1 //各軸の比を対照にする
+gnuplot> set xlabel "y" //軸の名前の指定
+gnuplot> set ylabel "x"
+gnuplot> plot "test.dat" u (-$2):1 w l title "Odometry" //グラフの保存、描画はされません
+gnuplot> set term x11 //グラフ書き込みモード終了
+	</pre></div>
+	
+	<p>ただし、この方法では最初に描画したグラフしかプロットされないため、再描画したグラフを保存したい場合は、<a href="http://lagendra.s.kanazawa-u.ac.jp/ogurisu/manuals/gnuplot-intro/png.html">ここ</a>を参考にしてください。</p>
+
+</div>
+  
+<!--  
+<div id="footer">
+<ul>
+	<li><a href="top/top.html">top</a></li>
+	<li><a href="profile/profile.html">profile</a></li>
+	<li><a href="research/research.html">research</a></li>
+	<li><a href="2016/jikken.html">2016</a></li>
+	<li><a href="http://www.roboken.esys.tsukuba.ac.jp">知能ロボット研究室</a></li>
+</ul>
+Copyright &copy 2014 Kohei HATTORI All Rights Reserved.
+</div><!-- /footer -->
+  
+ </body>
+</html>

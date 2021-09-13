@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja-JP" xml:lang="ja-JP">
+	
+	
+<head>
+<title>移動ロボットの行動プログラミング - 第2回 ロボットの動かし方と基本的な動作</title>
+<base href="../">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta http-equiv="content-script-type" content="text/javascript" />
+<meta http-equiv="content-style-type" content="text/css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+<link rel="stylesheet" type="text/css" href="common/HATstyle.css" charset="UTF-8" />
+<link rel="stylesheet" type="text/css" href="2017/HATJikkenStyle.css" charset="UTF-8" />
+</head>
+
+
+<body>
+
+
+<!--
+<div id="header">
+<a href="top/top.html"><img src="common/figure/theme.png"  alt="About" /></a>
+<ul>
+	<li><a href="2019/jikken.html">2019</a></li>
+	<li><a href="http://www.roboken.esys.tsukuba.ac.jp/">知能ロボット研究室</a></li>
+</ul>
+</div>
+-->
+	
+<div id="outline">
+	<p>2019年度 情報科学類 ソフトウェアサイエンス実験B</p>
+	<h1><a href="2019/jikken.html">移動ロボットの行動プログラミング</a><br />第2回 ロボットの動かし方と基本的な動作</h1>
+  
+	<h2>更新履歴</h2>
+	<ul>
+		<li>2012/12/05 資料「ロボットの動かし方」を更新</li>
+	</ul>
+
+	<h2>講義資料</h2>
+	<ul>
+		<li><a href="2019/document/robot_hardware.pdf">ロボットハードウェアの使い方</a></li>
+		<li><a href="2019/document/robot_control.pdf">ロボットの動かし方</a>
+		<p>(資料中の課題は一通りやってみてください。これについてはTAに見せる必要はありません。)</p></li>
+		<li>コマンド一覧などの詳細な情報は<a href="http://www.roboken.esys.tsukuba.ac.jp/platform/">こちらのページ</a>にあります。</li>
+		<li>コマンド一覧は<a href="http://www.roboken.esys.tsukuba.ac.jp/platform/wiki/_media/yp-spur/ypspur_command-1.13.3.pdf">こちらのページ</a>にあります。</li>
+		<li>課題を行う際には、学期末に提出するレポートに載せるために<a href="2019/logging.html">ロボット軌跡の保存</a>を行っておきましょう。</li>
+	</ul>
+<!--
+<p>上記の講義資料中で、プログラムのはじめにSpur_set_vel、Spur_set_angvelコマンドで速度・角速度の設定をしていますが、最新のYP-Spurではそれに加えてSpur_set_accel、Spur_set_angaccelコマンドで、角速度・角加速度を設定する必要があります。以下の行を追加して下さい。</p>
+<div class="source_code">
+<pre>Spur_set_accel(0.6);
+Spur_set_angaccel(3);
+</pre>
+</div>
+<p>だいたい、速度の2倍程度の値の加速度を設定するとよいでしょう。(つまり、0.5秒で最高速度に達する加速度)</p>
+-->
+	<h2>課題</h2>
+	<p>8の字を走行するプログラムを作成して下さい。</p>
+
+	<h2>課題ができたら</h2>
+	<p>TAに見てもらってください。</p>
+	<p>余力のある方は次回の課題に取り組んでもらっても構いません。</p>
+	
+
+	
+</div>
+  
+<!--
+<div id="footer">
+<ul>
+	<li><a href="top/top.html">top</a></li>
+	<li><a href="profile/profile.html">profile</a></li>
+	<li><a href="research/research.html">research</a></li>
+	<li><a href="2019/jikken.html">2019</a></li>
+	<li><a href="http://www.roboken.esys.tsukuba.ac.jp">知能ロボット研究室</a></li>
+</ul>
+Copyright &copy 2014 Kohei HATTORI All Rights Reserved.
+</div><!-- /footer -->
+  
+ </body>
+</html>

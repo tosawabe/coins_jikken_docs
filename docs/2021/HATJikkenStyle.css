@@ -1,0 +1,79 @@
+.floatLeft {
+    float: left;
+}
+
+.floatRight {
+    float: right;
+}
+
+#outline div{
+	padding-bottom: 5px;
+	margin-bottom: 20px;
+}
+
+#outline #fig{
+	margin-top: 25px;
+	margin-right: 20px;
+}
+
+#outline dl{
+	padding-left: 4px;
+	margin-left: 8px;
+}
+
+.warn{
+	color: #FF8C00;
+	font-weight: bold;
+	padding-left: 5px;
+	padding-right: 5px;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	color: #FFFFFF;
+	background-color: #FF8C00;
+	border: 1px solid #FF8C00;
+}
+
+.source_code{
+	margin        : 10px 3px 10px 15px;
+	padding       : 15px 10px;
+	border        : solid 1px #D0D0D0; 
+	background    : #e8f0f0; 
+}
+.source_code pre{
+	overflow      : auto;
+	white-space   : pre-wrap;
+	word-wrap     : break-word;
+	font-family   :"Monaco","Courier",monospace;
+	font-size     : 12px;
+	line-height   : 18px;
+	margin        : 0;
+	padding       : 0;
+}
+
+dl#robotparam{
+ margin-top: 4px;
+ margin-bottom: 18px;
+ margin-left: 32px;
+}
+dl#robotparam dt{
+ display: block;
+ width: 250px;
+ float: left;
+ clear: left;
+ text-align: right;
+}
+dl#robotparam dd{
+ display: block;
+ float: left;
+}
+
+.figure{
+	font-size     : 12px;
+	text-align    : center;
+	font-weight   : bold;
+}
+.figure img{
+	display: block;
+	margin: 1px auto;
+}

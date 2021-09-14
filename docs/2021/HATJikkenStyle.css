@@ -77,3 +77,9 @@ dl#robotparam dd{
 	display: block;
 	margin: 1px auto;
 }
+
+.figure_gazebo img{
+	display: block;
+	width: 100%;
+	margin: 1px auto;
+}

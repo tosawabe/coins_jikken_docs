@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ja-JP" xml:lang="ja-JP">
-	
-	
+
+
 <head>
 <title>移動ロボットの行動プログラミング - 中間課題</title>
 <base href="../">
@@ -14,9 +14,7 @@
 <link rel="stylesheet" type="text/css" href="2021/HATJikkenStyle.css" charset="UTF-8" />
 </head>
 
-
 <body>
-
 
 <!--
 <div id="header">
@@ -29,32 +27,50 @@
 -->
 	
 <div id="outline">
-	<p>2021年度 情報科学類 ソフトウェアサイエンス実験B</p>
-	<h1><a href="2021/jikken.html">移動ロボットの行動プログラミング</a><br/>中間課題</h1>
 
-	<h2>中間課題1</h2>
-<p>まっすぐでなく、所々に10センチメートル以下の隙間がある、約5メートルの壁に沿って走行する</p>
-<p>コースの例：
-<img src="common/img/intermediate-task-1.png" />
-</p>
-<ul>
- <li>スタート位置と初期角度はTAが指定する。ただし、初期角度は壁に向かって±45度の範囲とする。</li>
- <li>壁は、幅約45センチメートルの板で作成され、鈍角のみで構成されているものとする。</li>
-</ul>
+<p>2021年度 情報科学類 ソフトウェアサイエンス実験B</p>
+<h1><a href="2021/jikken.html">移動ロボットの行動プログラミング</a><br/>中間課題</h1>
 
+<h2>中間課題1</h2>
+    <p>まっすぐでなく、所々に10センチメートル以下の隙間がある、約5メートルの壁に沿って走行する</p>
+    <!-- <p>コースの例：
+        <img src="common/img/intermediate-task-1.png" />
+    </p> -->
+    <div class="figure"><img src="common/img/intermediate-task-1.png">コースの例</div>
+    <ul>
+        <li>スタート位置と初期角度はTAが指定する。ただし、初期角度は壁に向かって±45度の範囲とする。</li>
+        <li>壁は、幅約45センチメートルの板で作成され、鈍角のみで構成されているものとする。</li>
+    </ul>
 
 <h2>中間課題2</h2>
-<p>総合B棟1028室前の柱のまわりを、柱に沿って走行する
-<img src="common/img/intermediate-task-2.jpg" style="margin: 5px 20px;" /></p>
-<ul>
- <li>スタート位置と初期角度はTAが指定する。ただし、初期角度は柱の面に向かって±45度の範囲とする。</li>
-</ul>
+    <p>総合B棟1028室前の柱のまわりを、柱に沿って走行する</p>
+    <!-- <img src="common/img/intermediate-task-2.jpg" style="margin: 5px 20px;" /> -->
+    <div class="figure"><img src="common/img/intermediate-task-2.jpg"/>SB10階の柱</div>
+    <ul>
+        <li>スタート位置と初期角度はTAが指定する。ただし、初期角度は柱の面に向かって±45度の範囲とする。</li>
+    </ul>
 
 <h2> シミュレーション上での実施方法 </h3>
-	<p>シミュレータのGazeboで同様の環境を用意しました。以下の資料からやり方を確認し、取り組んでください。</p>
-<ul>
-	<li><a href="https://github.com/suzuki-ROBOlab/coins_jikken_docs/blob/main/2021/intermediate_task_gazebo.md">中間課題(オンライン)</a></li>
-</ul>
+    <p>シミュレータのGazeboで同様の環境を用意しました。</p>
+    <p>中間課題のワールドを起動</p>
+    <div class="source_code"><pre>
+(端末1) $ roslaunch yamasemi_sim intro_2020.launch
+    </pre></div>
+    <p>GazeboのワールドにBeegoを召喚</p>
+    <div class="source_code"><pre>
+(端末2) $ roslaunch beego_gazebo beego.launch
+
+or
+(端末2) $ roslaunch beego_gazebo beego.launch x:=3.0 y:=-2.0
+    （デフォルトではx:=0.0，y:=0.0，z:=0.0）
+(端末2) $ roslaunch beego_gazebo beego.launch Y:=3.14
+（デフォルトではR:=0.0，P:=0.0，Y:=0.0）
+    このように初期姿勢を引数で指定できる
+    </pre></div>
+    <p>中間課題の命令を実行</p>
+    <div class="source_code"><pre>
+(端末3) $ rosrun coins_jikken mid_assignment
+    </pre></div>
 
 <h2>中間課題1,2ができたら</h2>
 <p>課題ごとに、TAに見てもらってください。</p>

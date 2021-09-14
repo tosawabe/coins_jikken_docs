@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja-JP" xml:lang="ja-JP">
+	
+	
+<head>
+<title>移動ロボットの行動プログラミング - 挑戦課題</title>
+<base href="../">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta http-equiv="content-script-type" content="text/javascript" />
+<meta http-equiv="content-style-type" content="text/css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+<link rel="stylesheet" type="text/css" href="common/HATstyle.css" charset="UTF-8" />
+<link rel="stylesheet" type="text/css" href="2021/HATJikkenStyle.css" charset="UTF-8" />
+</head>
+
+
+<body>
+
+
+<!--
+<div id="header">
+<a href="top/top.html"><img src="common/figure/theme.png"  alt="About" /></a>
+<ul>
+	<li><a href="2016/jikken.html">2016</a></li>
+	<li><a href="http://www.roboken.esys.tsukuba.ac.jp/">知能ロボット研究室</a></li>
+</ul>
+</div>
+-->
+	
+<div id="outline">
+    <p>2021年度 情報科学類 ソフトウェアサイエンス実験B</p>
+    <h1><a href="2021/jikken.html">移動ロボットの行動プログラミング</a><br/>BeegoController README</h1>
+
+<h2>更新履歴</h2>
+<ul>
+    <li>2021/09/14 作成</li>
+</ul>
+
+<h2>コマンド一覧</h2>
+
+    <ul>
+        <li>
+            <b>straight</b>
+            <p>
+                ロボットが直進<br>
+                stop命令が出されるまで進む
+            </p>
+        </li>
+        <li>
+            <b>spinRight, spinLeft</b>
+            <p>
+                ロボットが旋回<br>
+                stop命令が出されるまで回る
+            </p>
+        </li>
+        <li>
+            <b>stop</b>
+            <p>
+                ロボットを停止
+            </p>
+        </li>
+        <li>
+            <b>control(x, yaw)</b>
+            <p>
+                並進速度x m/s, 角速度yaw rad/sで移動
+                straightやspinRight等と同様だが, これは速さを指定できる
+            </p>
+        </li>
+        <li>
+            <b>getCurrentPose(pose)</b>
+            <p>
+                現在のロボットの位置姿勢(オドメトリ)を引数へ保存
+            </p>
+        </li>
+        <li>
+            <b>updateReferencePose(pose)</b>
+            <p>
+                現在のロボットの位置姿勢(オドメトリ)を引数へ保存<br>
+                getCurrentPoseと動作は変わらないが,便宜上分けている
+            </p>
+        </li>
+        <li>
+            <b>getCurrentScan(scan)</b>
+            <p>
+                現在のLiDARのスキャンデータを引数へ保存
+            </p>
+        </li>
+        <li>
+            <b>calcYaw(pose)</b>
+            <p>
+                poseを受け取り現在の姿勢のYaw角を計算する
+            </p>
+        </li>
+        <li>
+            <b>normalize_angle(angle)</b>
+            <p>
+                角度を正規化
+            </p>
+        </li>
+        <li>
+            <b>saveFootmark</b>
+            <p>
+                ロボットの移動軌跡をファイルに保存
+            </p>
+        </li>
+    </ul>
+
+<h3>補足</h3>
+<p>状態遷移時に許容する誤差や、ロボットの速度・角速度は以下から変更可</p>
+<div class="source_code"><pre>
+# beego_controller/include/beego_controller/beego_controller.hのファイル
+
+#define POS_TOLERANCE 0.001        // 状態遷移時に許容する位置誤差 [m]
+#define RAD_TOLERANCE M_PI / 180.0 // 状態遷移時に許容する角度誤差 [rad]
+#define LINEAR_VEL 0.15            // ロボットの並進速度 [m/s]
+#define ANGULAR_VEL 0.5            // ロボットの角速度 [rad/s]
+</pre></div>
+
+</div>
+  
+<!--  
+<div id="footer">
+<ul>
+	<li><a href="top/top.html">top</a></li>
+	<li><a href="profile/profile.html">profile</a></li>
+	<li><a href="research/research.html">research</a></li>
+	<li><a href="2016/jikken.html">2016</a></li>
+	<li><a href="http://www.roboken.esys.tsukuba.ac.jp">知能ロボット研究室</a></li>
+</ul>
+Copyright &copy 2014 Kohei HATTORI All Rights Reserved.
+</div><!-- /footer -->
+  
+ </body>
+</html>

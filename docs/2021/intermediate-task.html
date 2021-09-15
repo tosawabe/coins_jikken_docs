@@ -52,24 +52,25 @@
 
 <h2> シミュレーション上での実施方法 </h3>
     <p>シミュレータのGazeboで同様の環境を用意しました。</p>
-    <p>中間課題のワールドを起動</p>
-    <div class="source_code"><pre>
-(端末1) $ roslaunch yamasemi_sim intro_2020.launch
-    </pre></div>
-    <p>GazeboのワールドにBeegoを召喚</p>
-    <div class="source_code"><pre>
-(端末2) $ roslaunch beego_gazebo beego.launch
 
-or
-(端末2) $ roslaunch beego_gazebo beego.launch x:=3.0 y:=-2.0
-    （デフォルトではx:=0.0，y:=0.0，z:=0.0）
-(端末2) $ roslaunch beego_gazebo beego.launch Y:=3.14
-（デフォルトではR:=0.0，P:=0.0，Y:=0.0）
-    このように初期姿勢を引数で指定できる
-    </pre></div>
-    <p>中間課題の命令を実行</p>
+<h3>中間課題1</h3>
+    <p>中間課題1のワールドを起動</p>
     <div class="source_code"><pre>
-(端末3) $ rosrun coins_jikken mid_assignment
+(端末1) $ roslaunch coins_jikken intermediate1_world.launch
+    </pre></div>
+    <p>中間課題1の命令を実行</p>
+    <div class="source_code"><pre>
+(端末3) $ rosrun coins_jikken mid_assignment1
+    </pre></div>
+
+    <h3>中間課題2</h3>
+    <p>中間課題2のワールドを起動</p>
+    <div class="source_code"><pre>
+(端末1) $ roslaunch coins_jikken intermediate2_world.launch
+    </pre></div>
+    <p>中間課題2の命令を実行</p>
+    <div class="source_code"><pre>
+(端末3) $ rosrun coins_jikken mid_assignment2
     </pre></div>
 
 <h2>中間課題1,2ができたら</h2>

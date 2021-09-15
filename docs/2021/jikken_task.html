@@ -55,9 +55,8 @@ $ catkin_make
         <li>
             シミュレータ
             <div class="source_code"><pre>
-(端末1) $ roslaunch yamasemi_sim intro_2020.launch
-(端末2) $ roslaunch beego_gazebo beego.launch
-(端末3) $ rosrun coins_jikken sample1
+(端末1) $ roslaunch coins_jikken sample1_world.launch
+(端末2) $ rosrun coins_jikken sample1
             </pre></div>
         </li>
         <li>
@@ -83,14 +82,8 @@ $ catkin_make
         <li>
             シミュレータ
             <div class="source_code"><pre>
-(端末1) $ roslaunch yamasemi_sim intro_2020.launch
-(端末2) $ roslaunch beego_gazebo beego.launch
-(端末2) $ roslaunch beego_gazebo beego.launch x:=3.0 y:=-2.0
-    （デフォルトではx:=0.0，y:=0.0，z:=0.0）
-(端末2) $ roslaunch beego_gazebo beego.launch Y:=3.14
-    （デフォルトではR:=0.0，P:=0.0，Y:=0.0）
-    このように初期姿勢を引数で指定できる
-(端末3) $ rosrun coins_jikken sample2
+(端末1) $ roslaunch coins_jikken sample2_world.launch
+(端末2) $ rosrun coins_jikken sample2
             </pre></div>
         </li>
         <li>
@@ -120,12 +113,11 @@ int i = -scan.angle_min / scan.angle_increment;
         <li>
             シミュレータ
             <div class="source_code"><pre>
-(端末1) $ roslaunch yamasemi_sim intro_2020.launch
-(端末2) $ roslaunch beego_gazebo beego.launch
-(端末3) $ rosrun coins_jikken sample3
-(端末4) $ roslaunch coins_jikken teleop_key.launch
+(端末1) $ roslaunch coins_jikken sample3_world.launch
+(端末2) $ rosrun coins_jikken sample3
+(端末3) $ roslaunch coins_jikken teleop_key.launch
 
-端末4をフォーカスしながら十字キーでロボットを操作することができる
+端末3をフォーカスしながら十字キーでロボットを操作することができる
 一通り走ったら端末3をCntl+cで終了し
 odom.txt, map.txtが保存されていることを確認
             </pre></div>
@@ -139,7 +131,7 @@ odom.txt, map.txtが保存されていることを確認
 
 端末3をフォーカスしながら十字キーでロボットを操作することができる
 実機は手で押しても可
-一通り走ったら端末3をCntl+cで終了し
+一通り走ったら端末2をCntl+cで終了し
 odom.txt, map.txtが保存されていることを確認
             </pre></div>
         </li>

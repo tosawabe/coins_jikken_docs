@@ -68,31 +68,19 @@ $ catkin_make
 
     <p>Gazeboのワールドを起動</p>
     <div class="source_code"><pre>
-(端末1) $ roslaunch yamasemi_sim (任意のworld).launch
-    </pre></div>
-    <p>GazeboのワールドにBeegoを召喚</p>
-    <div class="source_code"><pre>
-(端末2) $ roslaunch beego_gazebo beego.launch
-
-or
-(端末2) $ roslaunch beego_gazebo beego.launch x:=3.0 y:=-2.0
-（デフォルトではx:=0.0，y:=0.0，z:=0.0）
-(端末2) $ roslaunch beego_gazebo beego.launch Y:=3.14
-（デフォルトではR:=0.0，P:=0.0，Y:=0.0）
-このように初期姿勢を引数で指定できる
+(端末1) $ roslaunch coins_jikken (任意のworld).launch
     </pre></div>
     <p>以上でシミュレータの準備は完了。次に命令を記述したcoins_jikkenパッケージのノードを起動します。</p>
     <div class="source_code"><pre>
-(端末3) $ rosrun coins_jikken sample1
+(端末2) $ rosrun coins_jikken sample1
 サンプル1の命令を実行
     </pre></div>
     <ul>
         <li>
             その他
-            <p>rvizを起動しない実行例</p>
+            <p>rvizを起動する実行例</p>
             <div class="source_code"><pre>
-$ roslaunch yamasemi_sim final_2020.launch rviz:=false
-$ roslaunch beego_gazebo beego.launch rviz:=false
+$ roslaunch coins_jikken final_world.launch rviz:=true
             </pre></div>
         </li>
     </ul>
@@ -119,6 +107,31 @@ M1なら
 <h3>補足事項</h3>
 
     <ul>
+        <li>
+            ロボットを召喚する座標を変更
+            <p>
+                例としてsample1で変更をするとき<br>
+                シミュレータを起動するlaunchファイルの以下の点を変更する<br>
+                (~/catkin_ws/src/coins_jikken/coins_jikken/launch/world/sample1_world.launch)
+            </p>
+            <div class="source_code"><pre>
+arg name="x" value="1.0"
+arg name="y" value="1.0"
+arg name="Y" value="0.0" <-- ロボットの向き 後ろを向きたいなら0.0を1.57に
+            </pre></div>
+        </li>
+        <li>
+            ロボットの速度・角速度を変更
+            <p>以下を変更</p>
+            <div class="source_code"><pre>
+# ~/catkin_ws/src/coins_jikken/beego_controller/include/beego_controller/beego_controller.hのファイル
+
+#define POS_TOLERANCE 0.001        // 状態遷移時に許容する位置誤差 [m]
+#define RAD_TOLERANCE M_PI / 180.0 // 状態遷移時に許容する角度誤差 [rad]
+#define LINEAR_VEL 0.15            // ロボットの並進速度 [m/s]
+#define ANGULAR_VEL 0.5            // ロボットの角速度 [rad/s]
+            </pre></div>
+        </li>
         <li>
             新しくノードを作成する方法
             <div class="source_code"><pre>
@@ -149,18 +162,6 @@ ros::init(argc, argv, "test_coins_node");
             <p>以下で実行</p>
             <div class="source_code"><pre>
 $ rosrun coins_jikken test_coins_node
-            </pre></div>
-        </li>
-        <li>
-            ロボットの速度・角速度を変更
-            <p>以下を変更</p>
-            <div class="source_code"><pre>
-# ~/catkin_ws/src/coins_jikken/beego_controller/include/beego_controller/beego_controller.hのファイル
-
-#define POS_TOLERANCE 0.001        // 状態遷移時に許容する位置誤差 [m]
-#define RAD_TOLERANCE M_PI / 180.0 // 状態遷移時に許容する角度誤差 [rad]
-#define LINEAR_VEL 0.15            // ロボットの並進速度 [m/s]
-#define ANGULAR_VEL 0.5            // ロボットの角速度 [rad/s]
             </pre></div>
         </li>
     </ul>

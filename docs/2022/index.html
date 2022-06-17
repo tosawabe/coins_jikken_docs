@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ja-JP" xml:lang="ja-JP">
-	
-	
+
+
 <head>
 	<title>移動ロボットの行動プログラミング</title>
 	<base href="../">
@@ -10,152 +10,155 @@
 	<meta http-equiv="content-style-type" content="text/css" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 	<link rel="stylesheet" type="text/css" href="common/HATstyle.css" charset="UTF-8" />
-	<link rel="stylesheet" type="text/css" href="2021/HATJikkenStyle.css" charset="UTF-8" />
+	<link rel="stylesheet" type="text/css" href="2022/HATJikkenStyle.css" charset="UTF-8" />
 </head>
 
 
 
 <body>
-<!--
+	<!--
 <div id="header">
 	<a href="top/top.html"><img src="common/figure/theme.png"  alt="About" /></a>
 	<ul>
-		<li><a href="2021/jikken.html">2019</a></li>	
+		<li><a href="2022/jikken.html">2019</a></li>	
 		<li><a href="http://www.roboken.esys.tsukuba.ac.jp/">知能ロボット研究室</a></li>
 	</ul>
 </div>
 -->
-	
-<div id="outline">
 
-	<p>2021年度 情報科学類 ソフトウェアサイエンス実験B</p>
-	<h1>移動ロボットの行動プログラミング</h1>
-  	
-  
-	<div class="warnbox">
-		<p>この実験はオンラインでの実施を予定していますが、状況に応じて中間課題以降は総合研究棟10階で実機を用いた演習をしたいと考えております。演習課題や進め方に関する重要な連絡は前半にteamsで行います。また、manabaで出席を取ります。この実験については<span class="warn">manabaでの出席</span>がないと単位が与えられません。(実験担当:大矢)</p>
-	</div>
-  	<hr />
+	<div id="outline">
 
-	<h2>お知らせ</h2>
-	
-        
-        <!--<p>知能ロボット研究室の説明会が、10/17(木)および10/24(木)18:15から3L302-1号室で行われます。</br>
+		<p>2022年度 情報科学類 ソフトウェアサイエンス実験B</p>
+		<h1>移動ロボットの行動プログラミング</h1>
+
+
+		<div class="warnbox">
+			<p>この実験はオンラインでの実施を予定していますが、状況に応じて中間課題以降は総合研究棟10階で実機を用いた演習をしたいと考えております。演習課題や進め方に関する重要な連絡は前半にteamsで行います。また、manabaで出席を取ります。この実験については<span
+					class="warn">manabaでの出席</span>がないと単位が与えられません。(実験担当:大矢)</p>
+		</div>
+		<hr />
+
+		<h2>お知らせ</h2>
+
+
+		<!--<p>知能ロボット研究室の説明会が、10/17(木)および10/24(木)18:15から3L302-1号室で行われます。</br>
 <p>10/18(金)は、月曜授業のため、実験はありません。</b>-->
-	<!--<a href="http://www.roboken.esys.tsukuba.ac.jp/event/Orientation/2019/"><span class="warn">詳細はこちら</span></a></p>--!>
+		<!--<a href="http://www.roboken.esys.tsukuba.ac.jp/event/Orientation/2019/"><span class="warn">詳細はこちら</span></a></p>--!>
        
         <!--<p><b>その他資料置き場</b>に「測域センサデータの可視化」を追加しました。
         <a href="2016/urg-plotter.html"><span class="warn">詳細はこちら</span></a></p>
 　　　　<p><b>講義資料 第3回ページ</b>に「scip2awdコマンドを利用したプログラムのコンパイルエラー対策」を追記しました。</br>
         <a href="2016/task-3.html"><span class="warn">詳細はこちら</span></a></p>
         -->
-　　　　<h2>教室</h2>
-	<ul>
-		<li>初回: <b>teams</b></li>
-		<li>初回以降： <b>授業中に連絡します</b></li>
-	</ul>
-  
-	<h2>はじめに</h2>
-	<h3>実験の目的</h3>
-	<p>最近、二足歩行ロボット、癒し系ロボット、ネタロボットなど、多くのロボットが登場しています。しかし、これらロボットには人間と協調して動作するような、複雑な行動のためのアルゴリズムは未だ実装		されていないものです。</p>
-	<p>この実験ではロボットの移動制御プログラムを実際に作成し、そのプログラム開発の体験を目的としています。</p>
-
-	<p>ロボット制御と聞くと難しそうに聞こえるかもしれもしれませんが、知能ロボット研究室で開発したロボットプラットフォーム"山彦"と、ロボットの制御のための制御プラットフォームを使うと、比較的簡単にロボットの動作プログラミングを行うことができます。それでは、頑張っていきましょう</p>
-
-	<h3>課題の提出について</h3>
-	<ul>
-		<li><a href="2021/about_report.html" >課題の提出方法の詳細はこちらのページから確認して下さい</a></li>
-		<!--<li><a href="2021/logging.html">ロボット軌跡の保存</a></li>-->
-	</ul>
-
-	<h2>講義資料</h2>
-	<p> はじめに以下の資料に目を通し、実験課題の課題1~3に取り組んでください。
-	<ul>
-		<li><a href="2021/jikken_manual.html">
-			実験マニュアル
-		</a></li>
-		<li><a href="2021/jikken_task.html">
-			実験課題
-		</a></li>
-	</ul>
-	<h2>中間課題</h2>
-	<ul>
-		<li><a href="2021/intermediate-task.html">中間課題1,2</a></li>
-	</ul>
-
-	<h2>最終課題</h2>
-	<ul>
-		<li> シミュレータを用いて</li>
+		　　　　<h2>教室</h2>
 		<ul>
-		<li><a href="2021/final-gazebo.html">最終課題(オンライン)</a></li>
+			<li>初回: <b>teams</b></li>
+			<li>初回以降： <b>授業中に連絡します</b></li>
 		</ul>
-		<br>
-		<li> 実機を用いて </li>
-		<p>TAが以下の最終課題を一つ割り当てます。</p>
+
+		<h2>はじめに</h2>
+		<h3>実験の目的</h3>
+		<p>最近、二足歩行ロボット、癒し系ロボット、ネタロボットなど、多くのロボットが登場しています。しかし、これらロボットには人間と協調して動作するような、複雑な行動のためのアルゴリズムは未だ実装 されていないものです。</p>
+		<p>この実験ではロボットの移動制御プログラムを実際に作成し、そのプログラム開発の体験を目的としています。</p>
+
+		<p>ロボット制御と聞くと難しそうに聞こえるかもしれもしれませんが、知能ロボット研究室で開発したロボットプラットフォーム"山彦"と、ロボットの制御のための制御プラットフォームを使うと、比較的簡単にロボットの動作プログラミングを行うことができます。それでは、頑張っていきましょう
+		</p>
+
+		<h3>課題の提出について</h3>
 		<ul>
-			<li><a href="2021/final-1.html">最終課題1</a></li>
-			<li><a href="2021/final-2.html">最終課題2</a></li>
-			<li><a href="2021/final-3.html">最終課題3</a></li>
-			<li><a href="2021/final-4.html">最終課題4</a></li>
-			<li><a href="2021/final-5.html">最終課題5</a></li>
-			<li><a href="2021/final-6.html">最終課題6</a></li>
-			<li><a href="2021/final-7.html">最終課題7</a></li>
-			<li><a href="2021/final-8.html">最終課題8</a></li>
-			<li><a href="2021/final-9.html">最終課題9</a></li>
-			<li><a href="2021/final-10.html">最終課題10</a></li>
+			<li><a href="2022/about_report.html">課題の提出方法の詳細はこちらのページから確認して下さい</a></li>
+			<!--<li><a href="2022/logging.html">ロボット軌跡の保存</a></li>-->
 		</ul>
-	</ul>
-	<h2>挑戦課題</h2>
-	<p>最終課題を終了した人は、自らが設定する挑戦的な課題に取り組んでもらいます。</p>
-	<ul>
-        <li><a href="2021/challenge.html">挑戦課題</a></li>
-        </ul>
-	
-	<h2>その他の資料置き場</h2>
-	<ul>
-		<li><a href="2021/beego_controller.html">
-			beego_controllerの使い方
-		</a></li>
-		<br>
-		<li><a href="common/document/robot_hardware.pdf"> 山彦ロボットについて </a></li>
-		<li><a href="common/document/sokuiki_sensor.pdf"> 測域センサについて </a></li>
-		<li><a href="common/document/odometry_and_coordinate.pdf"> 座標系について </a></li>
-		<li><a href="http://www.roboken.esys.tsukuba.ac.jp/platform" >
-			詳細な情報や、ソフトウェア更新のお知らせなどは、こちらから確認して下さい
-		</a></li>
-	</ul>
 
-	<h2> 過去の講義資料 </h2>
+		<h2>講義資料</h2>
+		<p> はじめに以下の資料に目を通し、実験課題の課題1~3に取り組んでください。
+		<ul>
+			<li><a href="2022/jikken_manual.html">
+					実験マニュアル
+				</a></li>
+			<li><a href="2022/jikken_task.html">
+					実験課題
+				</a></li>
+		</ul>
+		<h2>中間課題</h2>
+		<ul>
+			<li><a href="2022/intermediate-task.html">中間課題1,2</a></li>
+		</ul>
 
-	<ul>
-		<li><a href="2021/task-1.html">第1回 ロボット開発環境のセットアップ</a></li>
-		<li><a href="2021/task-2.html">第2回 ロボットの動かし方と基本的な動作</a></li>
-		<li><a href="2021/task-3.html">第3回 測域センサの使い方</a></li>
-		<li><a href="2021/task-4.html">第4回 オドメトリと座標系</a></li>
+		<h2>最終課題</h2>
+		<ul>
+			<li> シミュレータを用いて</li>
+			<ul>
+				<li><a href="2022/final-gazebo.html">最終課題(オンライン)</a></li>
+			</ul>
 			<br>
-		<li><a href="common/document/ypspur_command-1.13.3.pdf">コマンド一覧</a></li>
-                <li><a href="2021/urg-plotter.html">測域センサデータの表示</a></li>
-	</ul>
+			<li> 実機を用いて </li>
+			<p>TAが以下の最終課題を一つ割り当てます。</p>
+			<ul>
+				<li><a href="2022/final-1.html">最終課題1</a></li>
+				<li><a href="2022/final-2.html">最終課題2</a></li>
+				<li><a href="2022/final-3.html">最終課題3</a></li>
+				<li><a href="2022/final-4.html">最終課題4</a></li>
+				<li><a href="2022/final-5.html">最終課題5</a></li>
+				<li><a href="2022/final-6.html">最終課題6</a></li>
+				<li><a href="2022/final-7.html">最終課題7</a></li>
+				<li><a href="2022/final-8.html">最終課題8</a></li>
+				<li><a href="2022/final-9.html">最終課題9</a></li>
+				<li><a href="2022/final-10.html">最終課題10</a></li>
+			</ul>
+		</ul>
+		<h2>挑戦課題</h2>
+		<p>最終課題を終了した人は、自らが設定する挑戦的な課題に取り組んでもらいます。</p>
+		<ul>
+			<li><a href="2022/challenge.html">挑戦課題</a></li>
+		</ul>
 
-<p>質問や疑問はTAまで。</p>
+		<h2>その他の資料置き場</h2>
+		<ul>
+			<li><a href="2022/beego_controller.html">
+					beego_controllerの使い方
+				</a></li>
+			<br>
+			<li><a href="common/document/robot_hardware.pdf"> 山彦ロボットについて </a></li>
+			<li><a href="common/document/sokuiki_sensor.pdf"> 測域センサについて </a></li>
+			<li><a href="common/document/odometry_and_coordinate.pdf"> 座標系について </a></li>
+			<li><a href="http://www.roboken.esys.tsukuba.ac.jp/platform">
+					詳細な情報や、ソフトウェア更新のお知らせなどは、こちらから確認して下さい
+				</a></li>
+		</ul>
 
-<h2>リンク</h2>
-<ul>
-<li><a href="http://www.roboken.esys.tsukuba.ac.jp/">知能ロボット研究室のページ</a></li>
-<li><a href="http://www.coins.tsukuba.ac.jp/">情報科学類のページ</a></li>
-</ul>
+		<h2> 過去の講義資料 </h2>
 
-	
-</div>
-  
-<!--  
+		<ul>
+			<li><a href="2022/task-1.html">第1回 ロボット開発環境のセットアップ</a></li>
+			<li><a href="2022/task-2.html">第2回 ロボットの動かし方と基本的な動作</a></li>
+			<li><a href="2022/task-3.html">第3回 測域センサの使い方</a></li>
+			<li><a href="2022/task-4.html">第4回 オドメトリと座標系</a></li>
+			<br>
+			<li><a href="common/document/ypspur_command-1.13.3.pdf">コマンド一覧</a></li>
+			<li><a href="2022/urg-plotter.html">測域センサデータの表示</a></li>
+		</ul>
+
+		<p>質問や疑問はTAまで。</p>
+
+		<h2>リンク</h2>
+		<ul>
+			<li><a href="http://www.roboken.esys.tsukuba.ac.jp/">知能ロボット研究室のページ</a></li>
+			<li><a href="http://www.coins.tsukuba.ac.jp/">情報科学類のページ</a></li>
+		</ul>
+
+
+	</div>
+
+	<!--  
 <div id="footer">
 <ul>
-	<li><a href="2021/jikken.html">2019</a></li>
+	<li><a href="2022/jikken.html">2019</a></li>
 	<li><a href="http://www.roboken.esys.tsukuba.ac.jp/">知能ロボット研究室</a></li>
 </ul>
 Copyright &copy 2014 Kohei HATTORI All Rights Reserved.
 </div><!-- /footer -->
-  
- </body>
+
+</body>
+
 </html>

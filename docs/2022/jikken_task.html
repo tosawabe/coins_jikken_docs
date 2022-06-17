@@ -1,118 +1,133 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ja-JP" xml:lang="ja-JP">
-	
-	
+
+
 <head>
-<title>移動ロボットの行動プログラミング - 中間課題</title>
-<base href="../">
-<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-<meta http-equiv="content-script-type" content="text/javascript" />
-<meta http-equiv="content-style-type" content="text/css" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-<link rel="stylesheet" type="text/css" href="common/HATstyle.css" charset="UTF-8" />
-<link rel="stylesheet" type="text/css" href="2021/HATJikkenStyle.css" charset="UTF-8" />
+    <title>移動ロボットの行動プログラミング - 中間課題</title>
+    <base href="../">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="content-script-type" content="text/javascript" />
+    <meta http-equiv="content-style-type" content="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="common/HATstyle.css" charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="2022/HATJikkenStyle.css" charset="UTF-8" />
 </head>
 
 <body>
 
-<!--
+    <!--
 <div id="header">
 <a href="top/top.html"><img src="common/figure/theme.png"  alt="About" /></a>
 <ul>
-	<li><a href="2021/jikken.html">2019</a></li>
+	<li><a href="2022/jikken.html">2019</a></li>
 	<li><a href="http://www.roboken.esys.tsukuba.ac.jp/">知能ロボット研究室</a></li>
 </ul>
 </div>
 -->
 
-<div id="outline">
-<p>2021年度 情報科学類 ソフトウェアサイエンス実験B</p>
-<h1><a href="2021/jikken.html">移動ロボットの行動プログラミング</a><br/>実験課題</h1>
+    <div id="outline">
+        <p>2022年度 情報科学類 ソフトウェアサイエンス実験B</p>
+        <h1><a href="2022/jikken.html">移動ロボットの行動プログラミング</a><br />実験課題</h1>
 
-<h2>更新履歴</h2>
-<ul>
-    <li>2021/09/14 作成</li>
-</ul>
+        <h2>更新履歴</h2>
+        <ul>
+            <li>2022/09/14 作成</li>
+        </ul>
 
-<h2>実験課題</h2>
+        <h2>実験課題</h2>
 
-    <p>課題のコードは以下にあります.</p>
-    <div class="source_code"><pre>
+        <p>課題のコードは以下にあります.</p>
+        <div class="source_code">
+            <pre>
 ~/catkin_ws/src/coins_jikken/coins_jikken/sample
 ~/catkin_ws/src/coins_jikken/coins_jikken/src
-    </pre></div>
-    <p>コンパイル</p>
-    <div class="source_code"><pre>
+    </pre>
+        </div>
+        <p>コンパイル</p>
+        <div class="source_code">
+            <pre>
 $ cd ~/catkin_ws
 $ catkin_make
-    </pre></div>
+    </pre>
+        </div>
 
-<h2>(1)sample1を実行しロボットを動かす</h2>
+        <h2>(1)sample1を実行しロボットを動かす</h2>
 
-    <p>BeegoControllerを利用して前進・旋回の操作を確認</p>
-    <ul>
-        <li>
-            シミュレータ
-            <div class="source_code"><pre>
+        <p>BeegoControllerを利用して前進・旋回の操作を確認</p>
+        <ul>
+            <li>
+                シミュレータ
+                <div class="source_code">
+                    <pre>
 (端末1) $ roslaunch coins_jikken sample1_world.launch
 (端末2) $ rosrun coins_jikken sample1
-            </pre></div>
-        </li>
-        <li>
-            実機(beegoの場合)
-            <p>
-                使う前に<a href="common/document/robot_hardware.pdf">山彦ロボットについて</a>に目を通す.
-            </p>
-            <div class="source_code"><pre>
+            </pre>
+                </div>
+            </li>
+            <li>
+                実機(beegoの場合)
+                <p>
+                    使う前に<a href="common/document/robot_hardware.pdf">山彦ロボットについて</a>に目を通す.
+                </p>
+                <div class="source_code">
+                    <pre>
 (端末1) $ roslaunch coins_jikken beego.launch
 (端末2) $ rosrun coins_jikken sample1
-            </pre></div>
-        </li>
-    </ul>
+            </pre>
+                </div>
+            </li>
+        </ul>
 
-<h3>課題1</h3>
+        <h3>課題1</h3>
 
-    <p>サンプルコードの内容を変更し、1m✕1mの正方形の軌跡を描くようにロボットを動作させる。</p>
+        <p>サンプルコードの内容を変更し、1m✕1mの正方形の軌跡を描くようにロボットを動作させる。</p>
 
-<h2>(2)sample2を実行しセンサデータの扱い方の確認</h2>
+        <h2>(2)sample2を実行しセンサデータの扱い方の確認</h2>
 
-    <p>URGによる点群を取得する</p>
-    <ul>
-        <li>
-            シミュレータ
-            <div class="source_code"><pre>
+        <p>URGによる点群を取得する</p>
+        <ul>
+            <li>
+                シミュレータ
+                <div class="source_code">
+                    <pre>
 (端末1) $ roslaunch coins_jikken sample2_world.launch
 (端末2) $ rosrun coins_jikken sample2
-            </pre></div>
-        </li>
-        <li>
-            実機
-            <div class="source_code"><pre>
+            </pre>
+                </div>
+            </li>
+            <li>
+                実機
+                <div class="source_code">
+                    <pre>
 (端末1) $ roslaunch coins_jikken beego.launch
 (端末2) $ rosrun coins_jikken sample2
-            </pre></div>
-        </li>
-    </ul>
-    <p>sample2ではロボット正面から障害物までの距離測っており、その距離が1m以下の場合停止する。</p>
+            </pre>
+                </div>
+            </li>
+        </ul>
+        <p>sample2ではロボット正面から障害物までの距離測っており、その距離が1m以下の場合停止する。</p>
 
-<h3>課題2</h3>
+        <h3>課題2</h3>
 
-    <p>sample2.cpp内の以下のiを変更し、ロボットの真右方向の障害物までの距離が1mの以下の場合停止するようにする。</p>
-    <div></div>
-    <div class="source_code"><pre>
+        <p>sample2.cpp内の以下のiを変更し、ロボットの真右方向の障害物までの距離が1mの以下の場合停止するようにする。</p>
+        <div></div>
+        <div class="source_code">
+            <pre>
 int i = -scan.angle_min / scan.angle_increment;
-    </pre></div>
-    <div class="figure"><img src="common/img/scandata_sample.png" width=70%>スキャンデータ参考画像</div>
-    <p>実際にロボットを動作させロボットが停止すること確認する。TAにも見てもらう。</p>
+    </pre>
+        </div>
+        <div class="figure"><img src="common/img/scandata_sample.png" width=70%>スキャンデータ参考画像</div>
+        <p>実際にロボットを動作させロボットが停止すること確認する。TAにも見てもらう。</p>
 
-<h2>(3)sample3を実行し簡単な地図を作る</h2>
+        <h2>(3)sample3を実行し簡単な地図を作る</h2>
 
-    <p>座標変換の確認</p>
-    <ul>
-        <li>
-            シミュレータ
-            <div class="source_code"><pre>
+        <p>座標変換の確認</p>
+        <ul>
+            <li>
+                シミュレータ
+                <div class="source_code">
+                    <pre>
 (端末1) $ roslaunch coins_jikken sample3_world.launch
 (端末2) $ rosrun coins_jikken sample3
 (端末3) $ roslaunch coins_jikken teleop_key.launch
@@ -120,11 +135,13 @@ int i = -scan.angle_min / scan.angle_increment;
 端末3をフォーカスしながら十字キーでロボットを操作することができる
 一通り走ったら端末3をCntl+cで終了し
 odom.txt, map.txtが保存されていることを確認
-            </pre></div>
-        </li>
-        <li>
-            実機
-            <div class="source_code"><pre>
+            </pre>
+                </div>
+            </li>
+            <li>
+                実機
+                <div class="source_code">
+                    <pre>
 (端末1) $ roslaunch coins_jikken beego.launch
 (端末2) $ rosrun coins_jikken sample3
 (端末3) $ roslaunch coins_jikken teleop_key.launch
@@ -133,56 +150,64 @@ odom.txt, map.txtが保存されていることを確認
 実機は手で押しても可
 一通り走ったら端末2をCntl+cで終了し
 odom.txt, map.txtが保存されていることを確認
-            </pre></div>
-        </li>
-    </ul>
-    <p>
-        odom.txtには一秒ごとのロボットのGL座標系でのx,yがmap.txtにはGL座標系でのロボットが取得した点群それぞれのx,yが保存される。<br>
-        gnuplotなどでプロットしてみよう</p>
-    <div class="source_code"><pre>
+            </pre>
+                </div>
+            </li>
+        </ul>
+        <p>
+            odom.txtには一秒ごとのロボットのGL座標系でのx,yがmap.txtにはGL座標系でのロボットが取得した点群それぞれのx,yが保存される。<br>
+            gnuplotなどでプロットしてみよう</p>
+        <div class="source_code">
+            <pre>
 $ gnuplot
 gnuplot> plot "odom.txt", "map.txt"
 gnuplot> exit
 
 オプションなどは適当に調べてみよう
-    </pre></div>
-    <p>簡単にpythonのmatplotlibで表示してみるサンプルコード(plot.pyとして用意した)</p>
-    <div class="source_code"><pre>
+    </pre>
+        </div>
+        <p>簡単にpythonのmatplotlibで表示してみるサンプルコード(plot.pyとして用意した)</p>
+        <div class="source_code">
+            <pre>
 $ cd ~/catkin_ws/src/coins_jikken/coins_jikken
 $ python3 plot.py
 
 plot.pyでの読み込むファイルのパスは確認し、正しいものにする。
-    </pre></div>
+    </pre>
+        </div>
 
-<h3>課題3</h3>
+        <h3>課題3</h3>
 
-    <p>しかし、このままでは地図はできない.sample3.cpp内の以下の内容を変更する</p>
-    <p><a href="common/document/odometry_and_coordinate.pdf">オドメトリと座標系</a>を参考に以下の二行を変更する.</p>
-    <div class="source_code"><pre>
+        <p>しかし、このままでは地図はできない.sample3.cpp内の以下の内容を変更する</p>
+        <p><a href="common/document/odometry_and_coordinate.pdf">オドメトリと座標系</a>を参考に以下の二行を変更する.</p>
+        <div class="source_code">
+            <pre>
 // FS座標系からGL座標系への変換
 // (参考) /base_link -> /odom
 x_gl = 0;
 y_gl = 0;
-    </pre></div>
-    <p>
-        うまく地図っぽいのができたか確認する。TAにも見てもらう。<br>
-        課題3まで終わったら中間課題に取り掛かりましょう.
-    </p>
+    </pre>
+        </div>
+        <p>
+            うまく地図っぽいのができたか確認する。TAにも見てもらう。<br>
+            課題3まで終わったら中間課題に取り掛かりましょう.
+        </p>
 
 
-</div>
+    </div>
 
-<!--  
+    <!--  
 <div id="footer">
 <ul>
 	<li><a href="top/top.html">top</a></li>
 	<li><a href="profile/profile.html">profile</a></li>
 	<li><a href="research/research.html">research</a></li>
-	<li><a href="2021/jikken.html">2019</a></li>
+	<li><a href="2022/jikken.html">2019</a></li>
 	<li><a href="http://www.roboken.esys.tsukuba.ac.jp">知能ロボット研究室</a></li>
 </ul>
 Copyright &copy 2014 Kohei HATTORI All Rights Reserved.
 </div><!-- /footer -->
-  
- </body>
+
+</body>
+
 </html>

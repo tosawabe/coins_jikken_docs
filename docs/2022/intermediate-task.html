@@ -4,92 +4,101 @@
 
 
 <head>
-<title>移動ロボットの行動プログラミング - 中間課題</title>
-<base href="../">
-<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-<meta http-equiv="content-script-type" content="text/javascript" />
-<meta http-equiv="content-style-type" content="text/css" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-<link rel="stylesheet" type="text/css" href="common/HATstyle.css" charset="UTF-8" />
-<link rel="stylesheet" type="text/css" href="2021/HATJikkenStyle.css" charset="UTF-8" />
+    <title>移動ロボットの行動プログラミング - 中間課題</title>
+    <base href="../">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="content-script-type" content="text/javascript" />
+    <meta http-equiv="content-style-type" content="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="common/HATstyle.css" charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="2022/HATJikkenStyle.css" charset="UTF-8" />
 </head>
 
 <body>
 
-<!--
+    <!--
 <div id="header">
 <a href="top/top.html"><img src="common/figure/theme.png"  alt="About" /></a>
 <ul>
-	<li><a href="2021/jikken.html">2019</a></li>
+	<li><a href="2022/jikken.html">2019</a></li>
 	<li><a href="http://www.roboken.esys.tsukuba.ac.jp/">知能ロボット研究室</a></li>
 </ul>
 </div>
 -->
-	
-<div id="outline">
 
-<p>2021年度 情報科学類 ソフトウェアサイエンス実験B</p>
-<h1><a href="2021/jikken.html">移動ロボットの行動プログラミング</a><br/>中間課題</h1>
+    <div id="outline">
 
-<h2>中間課題1</h2>
-    <p>まっすぐでなく、所々に10センチメートル以下の隙間がある、約5メートルの壁に沿って走行する</p>
-    <!-- <p>コースの例：
+        <p>2022年度 情報科学類 ソフトウェアサイエンス実験B</p>
+        <h1><a href="2022/jikken.html">移動ロボットの行動プログラミング</a><br />中間課題</h1>
+
+        <h2>中間課題1</h2>
+        <p>まっすぐでなく、所々に10センチメートル以下の隙間がある、約5メートルの壁に沿って走行する</p>
+        <!-- <p>コースの例：
         <img src="common/img/intermediate-task-1.png" />
     </p> -->
-    <div class="figure"><img src="common/img/intermediate-task-1.png">コースの例</div>
-    <ul>
-        <li>スタート位置と初期角度はTAが指定する。ただし、初期角度は壁に向かって±45度の範囲とする。</li>
-        <li>壁は、幅約45センチメートルの板で作成され、鈍角のみで構成されているものとする。</li>
-    </ul>
+        <div class="figure"><img src="common/img/intermediate-task-1.png">コースの例</div>
+        <ul>
+            <li>スタート位置と初期角度はTAが指定する。ただし、初期角度は壁に向かって±45度の範囲とする。</li>
+            <li>壁は、幅約45センチメートルの板で作成され、鈍角のみで構成されているものとする。</li>
+        </ul>
 
-<h2>中間課題2</h2>
-    <p>総合B棟1028室前の柱のまわりを、柱に沿って走行する</p>
-    <!-- <img src="common/img/intermediate-task-2.jpg" style="margin: 5px 20px;" /> -->
-    <div class="figure"><img src="common/img/intermediate-task-2.jpg"/>SB10階の柱</div>
-    <ul>
-        <li>スタート位置と初期角度はTAが指定する。ただし、初期角度は柱の面に向かって±45度の範囲とする。</li>
-    </ul>
+        <h2>中間課題2</h2>
+        <p>総合B棟1028室前の柱のまわりを、柱に沿って走行する</p>
+        <!-- <img src="common/img/intermediate-task-2.jpg" style="margin: 5px 20px;" /> -->
+        <div class="figure"><img src="common/img/intermediate-task-2.jpg" />SB10階の柱</div>
+        <ul>
+            <li>スタート位置と初期角度はTAが指定する。ただし、初期角度は柱の面に向かって±45度の範囲とする。</li>
+        </ul>
 
-<h2> シミュレーション上での実施方法 </h3>
-    <p>シミュレータのGazeboで同様の環境を用意しました。</p>
+        <h2> シミュレーション上での実施方法 </h3>
+            <p>シミュレータのGazeboで同様の環境を用意しました。</p>
 
-<h3>中間課題1</h3>
-    <p>中間課題1のワールドを起動</p>
-    <div class="source_code"><pre>
+            <h3>中間課題1</h3>
+            <p>中間課題1のワールドを起動</p>
+            <div class="source_code">
+                <pre>
 (端末1) $ roslaunch coins_jikken intermediate1_world.launch
-    </pre></div>
-    <p>中間課題1の命令を実行</p>
-    <div class="source_code"><pre>
+    </pre>
+            </div>
+            <p>中間課題1の命令を実行</p>
+            <div class="source_code">
+                <pre>
 (端末3) $ rosrun coins_jikken mid_assignment1
-    </pre></div>
+    </pre>
+            </div>
 
-    <h3>中間課題2</h3>
-    <p>中間課題2のワールドを起動</p>
-    <div class="source_code"><pre>
+            <h3>中間課題2</h3>
+            <p>中間課題2のワールドを起動</p>
+            <div class="source_code">
+                <pre>
 (端末1) $ roslaunch coins_jikken intermediate2_world.launch
-    </pre></div>
-    <p>中間課題2の命令を実行</p>
-    <div class="source_code"><pre>
+    </pre>
+            </div>
+            <p>中間課題2の命令を実行</p>
+            <div class="source_code">
+                <pre>
 (端末3) $ rosrun coins_jikken mid_assignment2
-    </pre></div>
+    </pre>
+            </div>
 
-<h2>中間課題1,2ができたら</h2>
-<p>課題ごとに、TAに見てもらってください。</p>
+            <h2>中間課題1,2ができたら</h2>
+            <p>課題ごとに、TAに見てもらってください。</p>
 
-	
-</div>
-  
-<!--  
+
+    </div>
+
+    <!--  
 <div id="footer">
 <ul>
 	<li><a href="top/top.html">top</a></li>
 	<li><a href="profile/profile.html">profile</a></li>
 	<li><a href="research/research.html">research</a></li>
-	<li><a href="2021/jikken.html">2019</a></li>
+	<li><a href="2022/jikken.html">2019</a></li>
 	<li><a href="http://www.roboken.esys.tsukuba.ac.jp">知能ロボット研究室</a></li>
 </ul>
 Copyright &copy 2014 Kohei HATTORI All Rights Reserved.
 </div><!-- /footer -->
-  
- </body>
+
+</body>
+
 </html>

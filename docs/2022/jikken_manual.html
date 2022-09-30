@@ -116,18 +116,6 @@ $ catkin_make
         (電源の入れ方、ロボットの区別はその時に教えます)
       </p>
       <div class="source_code">
-<!-- <pre>
-beegoなら
-(端末1) $ roslaunch coins_jikken beego.launch
-speegoなら
-(端末1) $ roslaunch coins_jikken speego.launch
-M1なら
-(端末1) $ roslaunch coins_jikken M1.launch
-
-命令を記述したノードを起動
-サンプル１
-(端末2) $ rosrun coins_jikken sanple1
-</pre> -->
 <pre>
 (端末1) $ roscore
 (端末2) $ ypspur-coordinator -p researches/programs/platform/yp-robot-params/robot-params/***.param -d /dev/ttyACM0 (or /dev/ttyACM1)

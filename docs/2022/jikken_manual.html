@@ -1,21 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ja-JP" xml:lang="ja-JP">
-
-
-<head>
+  <head>
     <title>移動ロボットの行動プログラミング - 中間課題</title>
-    <base href="../">
+    <base href="../" />
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     <meta http-equiv="content-script-type" content="text/javascript" />
     <meta http-equiv="content-style-type" content="text/css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="common/HATstyle.css" charset="UTF-8" />
-    <link rel="stylesheet" type="text/css" href="2022/HATJikkenStyle.css" charset="UTF-8" />
-</head>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="common/HATstyle.css"
+      charset="UTF-8"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="2022/HATJikkenStyle.css"
+      charset="UTF-8"
+    />
+  </head>
 
-<body>
-
+  <body>
     <!--
 <div id="header">
 <a href="top/top.html"><img src="common/figure/theme.png"  alt="About" /></a>
@@ -27,84 +37,85 @@
 -->
 
     <div id="outline">
-        <p>2022年度 情報科学類 ソフトウェアサイエンス実験B</p>
-        <h1><a href="2022/jikken.html">移動ロボットの行動プログラミング</a><br />実験マニュアル</h1>
+      <p>2022年度 情報科学類 ソフトウェアサイエンス実験B</p>
+      <h1>
+        <a href="2022/jikken.html">移動ロボットの行動プログラミング</a
+        ><br />実験マニュアル
+      </h1>
 
-        <h2>更新履歴</h2>
-        <ul>
-            <li>2021/09/14 作成</li>
-        </ul>
+      <h2>更新履歴</h2>
+      <ul>
+        <li>2021/09/14 作成</li>
+      </ul>
 
-        <h2>概要</h2>
+      <h2>概要</h2>
 
-        <p> 本実験では主に(~/catkin_ws/src/coins_jikken/coins_jikken/src)の中のプログラムをいじってもらいます。 <br>
-            必要に応じて新しい命令を追加するために(~/catkin_ws/src/coins_jikken/beego_controller)に変更を加えてください。</p>
+      <p>
+        本実験では主に(~/catkin_ws/src/coins_jikken/coins_jikken/src)の中のプログラムをいじってもらいます。
+        <br />
+        必要に応じて新しい命令を追加するために(~/catkin_ws/src/coins_jikken/beego_controller)に変更を加えてください。
+      </p>
 
-        <h2>課題のやり方</h2>
+      <h2>課題のやり方</h2>
 
-        <p>サンプルコード これを参考に課題をすすめる (穴埋めあり)</p>
-        <div class="source_code">
-            <pre>
+      <p>サンプルコード これを参考に課題をすすめる (穴埋めあり)</p>
+      <div class="source_code">
+        <pre>
 ~/catkin_ws/src/coins_jikken/coins_jikken/sample
 |-  sample1.cpp
     sample2.cpp
     sample3.cpp
-    </pre>
-        </div>
+        </pre>
+      </div>
 
-        <p>課題コード ここに記述して実験してください</p>
-        <div class="source_code">
-            <pre>
+      <p>課題コード ここに記述して実験してください</p>
+      <div class="source_code">
+        <pre>
 ~/catkin_ws/src/coins_jikken/coins_jikken/src
 |-  mid_assignment.cpp	中間課題
     fin_assignment.cpp	最終課題
     cha_assignment.cpp	挑戦課題
-    </pre>
-        </div>
+        </pre>
+      </div>
 
-        <p>コンパイル</p>
-        <div class="source_code">
-            <pre>
+      <p>コンパイル</p>
+      <div class="source_code">
+        <pre>
 $ cd ~/catkin_ws
 $ catkin_make
-    </pre>
-        </div>
+        </pre>
+      </div>
 
-        <h2>シミュレータ(gazebo)を利用して実行</h2>
+      <!-- <h2>シミュレータ(gazebo)を利用して実行</h2>
 
-        <p>Gazeboのワールドを起動</p>
-        <div class="source_code">
-            <pre>
-(端末1) $ roslaunch coins_jikken (任意のworld).launch
-    </pre>
-        </div>
-        <p>以上でシミュレータの準備は完了。次に命令を記述したcoins_jikkenパッケージのノードを起動します。</p>
-        <div class="source_code">
-            <pre>
-(端末2) $ rosrun coins_jikken sample1
-サンプル1の命令を実行
-    </pre>
-        </div>
-        <ul>
-            <li>
-                その他
-                <p>rvizを起動する実行例</p>
-                <div class="source_code">
-                    <pre>
-$ roslaunch coins_jikken final_world.launch rviz:=true
-            </pre>
-                </div>
-            </li>
-        </ul>
+      <p>Gazeboのワールドを起動</p>
+      <div class="source_code">
+        <pre>(端末1) $ roslaunch coins_jikken (任意のworld).launch</pre>
+      </div>
+      <p>
+        以上でシミュレータの準備は完了。次に命令を記述したcoins_jikkenパッケージのノードを起動します。
+      </p>
+      <div class="source_code">
+        <pre>(端末2) $ rosrun coins_jikken sample1 サンプル1の命令を実行</pre>
+      </div>
+      <ul>
+        <li>
+          その他
+          <p>rvizを起動する実行例</p>
+          <div class="source_code">
+            <pre>$ roslaunch coins_jikken final_world.launch rviz:=true</pre>
+          </div>
+        </li>
+      </ul> -->
 
-        <h2>実機を利用して実行</h2>
+      <h2>実機を利用して実行</h2>
 
-        <p>
-            ロボットに電源が入っており、パソコンとも接続できていることを確認<br>
-            (電源の入れ方、ロボットの区別はその時に教えます)
-        </p>
-        <div class="source_code">
-            <pre>
+      <p>
+        ロボットに電源が入っており、パソコンとも接続できていることを確認<br />
+        (電源の入れ方、ロボットの区別はその時に教えます)
+      </p>
+      <div class="source_code">
+        <pre>
 beegoなら
 (端末1) $ roslaunch coins_jikken beego.launch
 speegoなら
@@ -115,32 +126,33 @@ M1なら
 命令を記述したノードを起動
 サンプル１
 (端末2) $ rosrun coins_jikken sanple1
-    </pre>
-        </div>
+    </pre
+        >
+      </div>
 
-        <h3>補足事項</h3>
+      <h3>補足事項</h3>
 
-        <ul>
-            <li>
-                ロボットを召喚する座標を変更
-                <p>
-                    例としてsample1で変更をするとき<br>
-                    シミュレータを起動するlaunchファイルの以下の点を変更する<br>
-                    (~/catkin_ws/src/coins_jikken/coins_jikken/launch/world/sample1_world.launch)
-                </p>
-                <div class="source_code">
-                    <pre>
+      <ul>
+        <!-- <li>
+          ロボットを召喚する座標を変更
+          <p>
+            例としてsample1で変更をするとき<br />
+            シミュレータを起動するlaunchファイルの以下の点を変更する<br />
+            (~/catkin_ws/src/coins_jikken/coins_jikken/launch/world/sample1_world.launch)
+          </p>
+          <div class="source_code">
+            <pre>
 arg name="x" value="1.0"
 arg name="y" value="1.0"
 arg name="Y" value="0.0" <-- ロボットの向き 後ろを向きたいなら0.0を1.57に
             </pre>
-                </div>
-            </li>
-            <li>
-                ロボットの速度・角速度を変更
-                <p>以下を変更</p>
-                <div class="source_code">
-                    <pre>
+          </div>
+        </li> -->
+        <li>
+          ロボットの速度・角速度を変更
+          <p>以下を変更</p>
+          <div class="source_code">
+            <pre>
 # ~/catkin_ws/src/coins_jikken/beego_controller/include/beego_controller/beego_controller.hのファイル
 
 #define POS_TOLERANCE 0.001        // 状態遷移時に許容する位置誤差 [m]
@@ -148,12 +160,12 @@ arg name="Y" value="0.0" <-- ロボットの向き 後ろを向きたいなら0.
 #define LINEAR_VEL 0.15            // ロボットの並進速度 [m/s]
 #define ANGULAR_VEL 0.5            // ロボットの角速度 [rad/s]
             </pre>
-                </div>
-            </li>
-            <li>
-                新しくノードを作成する方法
-                <div class="source_code">
-                    <pre>
+          </div>
+        </li>
+        <li>
+          新しくノードを作成する方法
+          <div class="source_code">
+            <pre>
 src
 |-  beg_assignment.cpp  入門課題
     mid_assignment.cpp  中間課題
@@ -161,13 +173,13 @@ src
     cha_assignment.cpp  挑戦課題
     test_coins.cpp      新しく作成したノード
             </pre>
-                </div>
-                <p>
-                    新しくノードを作成する場合、CMakeLists.txtを変更しないとコンパイルが出来ません。<br>
-                    以下をcoins_jikken/coins_jikken/CMakeLists.txtに追加。
-                </p>
-                <div class="source_code">
-                    <pre>
+          </div>
+          <p>
+            新しくノードを作成する場合、CMakeLists.txtを変更しないとコンパイルが出来ません。<br />
+            以下をcoins_jikken/coins_jikken/CMakeLists.txtに追加。
+          </p>
+          <div class="source_code">
+            <pre>
 add_executable(test_coins
     src/test_coins.cpp
     )
@@ -176,50 +188,53 @@ target_link_libraries(test_coins
     ${catkin_LIBRARIES}
     )
             </pre>
-                </div>
-                <div class="source_code">
-                    <pre>
+          </div>
+          <div class="source_code">
+            <pre>
 // test_coins.cppにて起動するときのノード名を設定
 ros::init(argc, argv, "test_coins_node");
             </pre>
-                </div>
-                <p>以下で実行</p>
-                <div class="source_code">
-                    <pre>
+          </div>
+          <p>以下で実行</p>
+          <div class="source_code">
+            <pre>
 $ rosrun coins_jikken test_coins_node
             </pre>
-                </div>
-            </li>
-        </ul>
+          </div>
+        </li>
+      </ul>
 
-        <h2>Tips</h2>
+      <h2>Tips</h2>
 
-        <h3>Stage</h3>
+      <h3>Stage</h3>
 
-        <p>Gazebo、実機の他にStageというシミュレータがある。<br>
-            sample2,3をやる際に利用できるかもしれない。
-        </p>
-        <div class="source_code">
-            <pre>
+      <p>
+        Gazebo、実機の他にStageというシミュレータがある。<br />
+        sample2,3をやる際に利用できるかもしれない。
+      </p>
+      <div class="source_code">
+        <pre>
 $ roslaunch coins_jikken stage.launch
 $ roslaunch coins_jikken teleop_key.launch
-    </pre>
-        </div>
+    </pre
+        >
+      </div>
 
-        <h3>terminator</h3>
+      <h3>terminator</h3>
 
-        <p>
-            コマンドを実行するためのコマンドラインインターフェース。同じウィンドウ内で画面を複数分割できるため便利。
-        </p>
-        <div class="source_code">
-            <pre>
+      <p>
+        コマンドを実行するためのコマンドラインインターフェース。同じウィンドウ内で画面を複数分割できるため便利。
+      </p>
+      <div class="source_code">
+        <pre>
 $ sudo apt install terminator
 インストール
-    </pre>
-        </div>
-        <p>好きなレイアウトを設定したら、その設定を保存できる。</p>
-        <div class="source_code">
-            <pre>
+    </pre
+        >
+      </div>
+      <p>好きなレイアウトを設定したら、その設定を保存できる。</p>
+      <div class="source_code">
+        <pre>
 1. ターミナルを右クリック
 2. 設定をクリック
 3. タブからレイアウトを選択
@@ -227,47 +242,56 @@ $ sudo apt install terminator
 
 $ terminator -l ros&exit
 とすればいつでも同じレイアウトで起動できる。
-    </pre>
-        </div>
+    </pre
+        >
+      </div>
 
-        <h3>スクリーンショット</h3>
+      <h3>スクリーンショット</h3>
 
-        <div class="source_code">
-            <pre>
+      <div class="source_code">
+        <pre>
 $ gnome-screenshot --area
-    </pre>
-        </div>
+    </pre
+        >
+      </div>
 
-        <h3>エイリアス</h3>
+      <h3>エイリアス</h3>
 
-        <p>以上紹介したコマンドは少し長くめんどくさいのでエイリアスを設定しましょう。</p>
-        <div class="source_code">
-            <pre>
+      <p>
+        以上紹介したコマンドは少し長くめんどくさいのでエイリアスを設定しましょう。
+      </p>
+      <div class="source_code">
+        <pre>
 $ sudo gedit ~/.bashrc
-    </pre>
-        </div>
-        <p>.bashrcのファイル内に以下の文を追加</p>
-        <div class="source_code">
-            <pre>
+    </pre
+        >
+      </div>
+      <p>.bashrcのファイル内に以下の文を追加</p>
+      <div class="source_code">
+        <pre>
 # .bashrc
 
 alias rosterminator='terminator -l ros&exit'
 alias s='gnome-screenshot --area'
-    </pre>
-        </div>
-        <div class="source_code">
-            <pre>
+    </pre
+        >
+      </div>
+      <div class="source_code">
+        <pre>
 $ source ~/.bashrc
 .bashrcの再読み込み
 
 $ rosterminator
 $ s
 以上のコマンドで同様のことができるようになる
-    </pre>
-        </div>
-        <p><a href="https://qiita.com/miriwo/items/0a3bce6bb04aaca6a7a6">本当はこう</a></p>
-
-
+    </pre
+        >
+      </div>
+      <p>
+        <a href="https://qiita.com/miriwo/items/0a3bce6bb04aaca6a7a6"
+          >本当はこう</a
+        >
+      </p>
     </div>
 
     <!--  
@@ -281,7 +305,5 @@ $ s
 </ul>
 Copyright &copy 2014 Kohei HATTORI All Rights Reserved.
 </div><!-- /footer -->
-
-</body>
-
+  </body>
 </html>

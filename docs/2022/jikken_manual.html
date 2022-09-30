@@ -62,9 +62,9 @@
       <div class="source_code">
         <pre>
 ~/catkin_ws/src/coins_jikken/coins_jikken/sample
-|-  sample1.cpp
-    sample2.cpp
-    sample3.cpp
+    |-  sample1.cpp
+        sample2.cpp
+        sample3.cpp
         </pre>
       </div>
 
@@ -72,9 +72,10 @@
       <div class="source_code">
         <pre>
 ~/catkin_ws/src/coins_jikken/coins_jikken/src
-|-  mid_assignment.cpp	中間課題
-    fin_assignment.cpp	最終課題
-    cha_assignment.cpp	挑戦課題
+    |-  mid_assignment1.cpp	中間課題１
+        mid_assignment2.cpp	中間課題2
+        fin_assignment.cpp	最終課題
+        cha_assignment.cpp	挑戦課題
         </pre>
       </div>
 
@@ -115,7 +116,7 @@ $ catkin_make
         (電源の入れ方、ロボットの区別はその時に教えます)
       </p>
       <div class="source_code">
-        <pre>
+<!-- <pre>
 beegoなら
 (端末1) $ roslaunch coins_jikken beego.launch
 speegoなら
@@ -126,8 +127,17 @@ M1なら
 命令を記述したノードを起動
 サンプル１
 (端末2) $ rosrun coins_jikken sanple1
-    </pre
-        >
+</pre> -->
+<pre>
+(端末1) $ roscore
+(端末2) $ ypspur-coordinator -p researches/programs/platform/yp-robot-params/robot-params/***.param -d /dev/ttyACM0 (or /dev/ttyACM1)
+(端末3) $ rosrun urg_node urg_node _serial_port:=/dev/ttyACM1 (or /dev/ttyACM1)
+(端末4) $ rosrun ypspur_ros_bridge ypspur_ros_bridge
+(端末5) $ rosrun coins_jikken sample1
+
+(補足)
+***.paramは beego.param or speego.param or M1.param 
+</pre>
       </div>
 
       <h3>補足事項</h3>

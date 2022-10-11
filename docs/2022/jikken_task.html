@@ -56,10 +56,10 @@
       </div>
       <p>コンパイル</p>
       <div class="source_code">
-        <pre>
+<pre>
 $ cd ~/catkin_ws
 $ catkin_make
-    </pre
+</pre
         >
       </div>
 
@@ -70,9 +70,8 @@ $ catkin_make
         <pre>
 (端末1) $ roscore
 (端末2) $ ypspur-coordinator -p researches/programs/platform/yp-robot-params/robot-params/***.param -d /dev/ttyACM0 (or /dev/ttyACM1)
-(端末3) $ rosrun urg_node urg_node _serial_port:=/dev/ttyACM1 (or /dev/ttyACM1)
-(端末4) $ rosrun ypspur_ros_bridge ypspur_ros_bridge
-(端末5) $ rosrun coins_jikken sample1
+(端末3) $ rosrun ypspur_ros_bridge ypspur_ros_bridge
+(端末4) $ rosrun coins_jikken sample1
 
 (補足)
 ***.paramは beego.param or speego.param or M1.param. 使用しているロボットによって異なる。
@@ -199,13 +198,15 @@ odom.txt, map.txtが保存されていることを確認
 </pre
         >
       </div>
-      <p>(端末6)を起動したことで、PCの十字キーを押すことでロボットを操作することができる。</p>
+      <p>
+        (端末6)を起動したことで、PCの十字キーを押すことでロボットを操作することができる。
+      </p>
       <p>
         odom.txtには一秒ごとのロボットのGL座標系でのx,yがmap.txtにはGL座標系でのロボットが取得した点群それぞれのx,yが保存される。<br />
         gnuplotなどでプロットしてみよう
       </p>
       <div class="source_code">
-<pre>
+        <pre>
 $ gnuplot
 gnuplot> plot "odom.txt", "map.txt"
 gnuplot> exit

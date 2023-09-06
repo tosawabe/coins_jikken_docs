@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja-JP" xml:lang="ja-JP">
+  <head>
+    <title>移動ロボットの行動プログラミング - 入門課題</title>
+    <base href="../" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="content-script-type" content="text/javascript" />
+    <meta http-equiv="content-style-type" content="text/css" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="common/HATstyle.css"
+      charset="UTF-8"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="2023/HATJikkenStyle.css"
+      charset="UTF-8"
+    />
+  </head>
+
+  <body>
+    <!--
+<div id="header">
+<a href="top/top.html"><img src="common/figure/theme.png"  alt="About" /></a>
+<ul>
+	<li><a href="2023/jikken.html">2019</a></li>
+	<li><a href="http://www.roboken.esys.tsukuba.ac.jp/">知能ロボット研究室</a></li>
+</ul>
+</div>
+-->
+
+    <div id="outline">
+      <p>2023年度 情報科学類 ソフトウェアサイエンス実験B</p>
+      <h1>
+        <a href="2023/jikken.html">移動ロボットの行動プログラミング</a
+        ><br />入門課題
+      </h1>
+
+      <h2>更新履歴</h2>
+      <ul>
+        <li>2021/09/14 作成</li>
+      </ul>
+
+      <h2>入門課題</h2>
+
+      <p>課題のコードは以下のパスに保存している.</p>
+      <div class="source_code">
+        <pre>~/catkin_ws/src/coins_jikken/coins_jikken/sample</pre>
+      </div>
+      <p>コンパイル</p>
+      <div class="source_code">
+<pre>
+$ cd ~/catkin_ws
+$ catkin_make
+</pre
+        >
+      </div>
+
+      <h2>(1)ロボットの前進・旋回</h2>
+      <p>この主専攻実験ではBeegoControllerというクラスを用いてロボットの前進や旋回を指令する。</p>
+      
+      <p>以下のコマンドでsample1を実行することで、BeegoControllerを利用した前進・旋回の様子を確認できる。</p>
+      <div class="source_code">
+        <pre>
+(端末1) $ roscore
+(端末2) $ rosrun ypspur_ros ypspur_ros param_file:=/home/student1/researches/programs/platform/yp-robot-params/robot-params/***.param port:=/dev/serial/by-id/usb-T-frog_project_T-frog_Driver-if00
+(端末3) $ rosrun urg_node urg_node _serial_port:=/dev/serial/by-id/usb-Hokuyo_Data_Flex_for_USB_URG-Series_USB_Driver-if00
+(端末4) $ rosrun coins_jikken sample1
+
+(補足)
+***.paramは beego.param or speego.param or M1.param. 使用しているロボットによって異なる。
+        </pre>
+      </div>
+      <p>
+      このプログラムによって図1のような経路で地点1~3を通るようにロボットが移動することを確認できる。
+      </p>
+      <div class="source_code">
+        <pre>
+① (1, 0)まで速度0.1m/sで前進
+② 角速度0.5rad/sで反時計周りに回転
+③ (1, 1)まで速度0.1m/sで前進
+④ 角速度0.5rad/sで時計周りに回転
+⑤ (1, -1)まで速度0.1m/s、角速度0.1rad/sで円を描くように前進
+        </pre>
+      </div>
+
+      <div class="figure">
+        <img
+          src="common/img/sample1.png"
+          width="70%"
+        />(図1)sample1でのロボットの移動経路
+      </div>
+
+      <p>以下にsample1のコードの一部を示す。</p>
+
+      <div class="source_code">
+        <pre>
+b.getCurrentPose(pose); // 現在の姿勢を取得
+
+// ref_poseとの差を取得
+double dist_diff = hypot(pose.position.x - ref_pose.position.x,
+                          pose.position.y - ref_pose.position.y); // poseとref_poseの距離
+double yaw_diff = b.normalize_angle(b.calcYaw(pose) - b.calcYaw(ref_pose));   // poseとref_poseのなす角度
+
+︙
+
+case 0:
+    b.control(0.1, 0); // 並進速度0.1m/sで直進
+    if (dist_diff > 1.0 - POS_TOLERANCE)
+    { // 一定距離以上(1.0m)進んだら、状態を進める
+        b.updateReferencePose(ref_pose); // 基準の更新
+        state = 1;
+    }
+    break;
+        </pre>
+      </div>
+
+      <p>
+        control関数によって第一引数で速度、第二引数で角速度を指定することで前進と旋回を指令できる。
+        また、ロボットの姿勢はposeから確認することができる.例えばx座標を取得したい場合にはpose.position.xの値を参照する。
+        具体的なposeの構造は以下のサイトより確認することができる。
+        <a href="http://docs.ros.org/en/noetic/api/geometry_msgs/html/msg/Pose.html">ROS massage - Pose -</a>
+      </p>
+
+      <h3>入門課題1</h3>
+
+      <p>
+        サンプルコードの内容を変更し、1m✕1mの正方形の軌跡を描くようにロボットを動作させる。
+      </p>
+
+      <h2>(2)センサデータの取り扱い</h2>
+
+      <p>ロボットにはレーザーセンサ(URG)が搭載されており、このセンサから得られる点群を取得する。</p>
+      <!-- シミュレーションを考慮した資料だが、おそらく今後は使用しない -->
+      <!-- <ul>
+        <li>
+          シミュレータ
+          <div class="source_code">
+            <pre>
+(端末1) $ roslaunch coins_jikken sample2_world.launch
+(端末2) $ rosrun coins_jikken sample2
+            </pre>
+          </div>
+        </li>
+        <li>
+          実機
+          <div class="source_code">
+            <pre>
+(端末1) $ roslaunch coins_jikken beego.launch
+(端末2) $ rosrun coins_jikken sample2
+            </pre>
+          </div>
+        </li>
+      </ul> -->
+      <p>
+        以下のコマンドでsample2を実行することで、センサの値の取得方法とセンサの値を用いたロボットの走行の様子を確認する。
+      </p>
+
+      <div class="source_code">
+        <pre>
+(端末1) $ roscore
+(端末2) $ rosrun ypspur_ros ypspur_ros param_file:=/home/student1/researches/programs/platform/yp-robot-params/robot-params/***.param port:=/dev/serial/by-id/usb-T-frog_project_T-frog_Driver-if00
+(端末3) $ rosrun urg_node urg_node _serial_port:=/dev/serial/by-id/usb-Hokuyo_Data_Flex_for_USB_URG-Series_USB_Driver-if00
+(端末4) $ rosrun coins_jikken sample2
+
+(補足)
+***.paramは beego.param or speego.param or M1.param. 使用しているロボットによって異なる。
+        </pre>
+      </div>
+      <p>
+        このプログラムではロボットは常に前進し、ロボットの正面から1m以内に障害物がある場合に停止する。
+      </p>
+      <p>
+        以下はsample2のコードの一部である。
+      </p>
+      <div class="source_code">
+        <pre>
+b.getCurrentScan(scan); // 現在のセンサ情報の取得
+b.control(0.1, 0); // 並進速度0.1m/sで直進
+
+int i = -scan.angle_min / scan.angle_increment;
+
+︙
+
+std::cout << scan.ranges[i] << std::endl;
+if (scan.ranges[i] > 0.01 && scan.ranges[i] < 1.0){
+    // 0.01以下のノイズが取得されてしまう場合は無視
+    // 正面までの距離が1m以下ならストップ
+    b.stop();
+    break;
+}
+        </pre>
+      </div>
+      <p> 
+        センサで取得した値はscan.rangesという配列に格納されており、正面に該当するインデックスiでの値が1.0m以内であるかif文で判定している。
+        scanにはセンサで取得した値以外にも、最大の角度の方向を示すscan.angle_maxなどの情報がある。
+        詳しい構造は以下のリンクに記載している。
+        <a href="http://docs.ros.org/en/noetic/api/geometry_msgs/html/msg/Pose.html">ROS massage - LaserScan -</a>
+      </p>
+
+      <p>
+        また、図2に取得できるセンサの範囲を示す。
+      </p>
+      <div class="figure">
+        <img src="common/img/scandata_sample.png" width="70%"/>
+        (図2)スキャンデータ参考画像
+      </div>
+
+      <h3>入門課題2</h3>
+      <p>
+        sample2.cpp内のiの値を変更し、ロボットの真右方向の障害物までの距離が1mの以下の場合停止するようにする。
+      </p>
+      <div class="source_code">
+        <pre>
+int i = -scan.angle_min / scan.angle_increment;
+    </pre >
+      </div>
+
+      <p>
+        実際にロボットを動作させロボットが停止すること確認する。TAにも見てもらう。
+      </p>
+
+      <h2>(3)地図の作成</h2>
+
+      <p>ロボットの位置とセンサの値の取得、センサーの値の座標への変換を用いることで地図を作成することもできる。
+        以下のコマンドでsample3を実行することで、地図を作成してみる。
+      </p>
+      <!-- <ul>
+        <li>
+          シミュレータ
+          <div class="source_code">
+            <pre>
+(端末1) $ roslaunch coins_jikken sample3_world.launch
+(端末2) $ rosrun coins_jikken sample3
+(端末3) $ roslaunch coins_jikken teleop_key.launch
+
+端末3をフォーカスしながら十字キーでロボットを操作することができる
+一通り走ったら端末3をCntl+cで終了し
+odom.txt, map.txtが保存されていることを確認
+            </pre>
+          </div>
+        </li>
+        <li>
+          実機
+          <div class="source_code">
+            <pre>
+(端末1) $ roslaunch coins_jikken beego.launch
+(端末2) $ rosrun coins_jikken sample3
+(端末3) $ roslaunch coins_jikken teleop_key.launch
+
+端末3をフォーカスしながら十字キーでロボットを操作することができる
+実機は手で押しても可
+一通り走ったら端末2をCntl+cで終了し
+odom.txt, map.txtが保存されていることを確認
+            </pre>
+          </div>
+        </li>
+      </ul> -->
+
+      <div class="source_code">
+        <pre>
+(端末1) $ roscore
+(端末2) $ rosrun ypspur_ros ypspur_ros param_file:=/home/student1/researches/programs/platform/yp-robot-params/robot-params/***.param port:=/dev/serial/by-id/usb-T-frog_project_T-frog_Driver-if00
+(端末3) $ rosrun urg_node urg_node _serial_port:=/dev/serial/by-id/usb-Hokuyo_Data_Flex_for_USB_URG-Series_USB_Driver-if00
+(端末4) $ rosrun coins_jikken sample3
+(端末5) $ roslaunch coins_jikken teleop_key.launch
+
+(補足)
+***.paramは beego.param or speego.param or M1.param. 使用しているロボットによって異なる。
+</pre>
+      </div>
+      <p>
+        (端末5)を起動したことで、PCの十字キーを押すことでロボットを操作することができる。
+      </p>
+      <p>
+        odom.txtには一秒ごとのロボットのGL座標系でのx,yがmap.txtにはGL座標系でのロボットが取得した点群それぞれのx,yが保存される。<br />
+        gnuplotなどでプロットしてみよう
+      </p>
+      <div class="source_code">
+        <pre>
+$ gnuplot
+gnuplot> plot "odom.txt", "map.txt"
+gnuplot> exit
+
+オプションなどは適当に調べてみよう
+(odom.txt, map.txtが存在するディレクトリでgnuplotを起動しないとプロットできません。)
+    </pre
+        >
+      </div>
+      <p>
+        簡単にpythonのmatplotlibで表示してみるサンプルコード(plot.pyとして用意した)
+      </p>
+      <div class="source_code">
+        <pre>
+$ cd ~/catkin_ws/src/coins_jikken/coins_jikken
+$ python3 plot.py
+
+plot.pyでの読み込むファイルのパスは確認し、正しいものにする。
+    </pre
+        >
+      </div>
+
+      <h3>入門課題3</h3>
+
+      <p>
+        しかし、このままでは地図はできない。これは、センサで取得した点の座標変換が行われていないためである。
+        この問題を解決するために、<a href="common/document/odometry_and_coordinate.pdf">オドメトリと座標系</a>を参考に以下の二行を変更する.
+      </p>
+
+      <div class="source_code">
+        <pre>
+// FS座標系からGL座標系への変換
+// (参考) /base_link -> /odom
+x_gl = 0;
+y_gl = 0;
+    </pre
+        >
+      </div>
+      <p>
+        うまく地図っぽいのができたか確認する。TAにも見てもらう。<br />
+        課題3まで終わったら中間課題に取り掛かりましょう.
+      </p>
+    </div>
+
+    <!--  
+<div id="footer">
+<ul>
+	<li><a href="top/top.html">top</a></li>
+	<li><a href="profile/profile.html">profile</a></li>
+	<li><a href="research/research.html">research</a></li>
+	<li><a href="2023/jikken.html">2019</a></li>
+	<li><a href="http://www.roboken.esys.tsukuba.ac.jp">知能ロボット研究室</a></li>
+</ul>
+Copyright &copy 2014 Kohei HATTORI All Rights Reserved.
+</div><!-- /footer -->
+  </body>
+</html>

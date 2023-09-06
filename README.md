@@ -2,4 +2,4 @@
 
 coins 主専攻実験 公開用
 
-https://miura-t84.github.io/coins_jikken_docs/2022/index.html
+https://ooka-c.github.io/coins_jikken_docs/2023/index.html

@@ -20,7 +20,7 @@
     <link
       rel="stylesheet"
       type="text/css"
-      href="2022/HATJikkenStyle.css"
+      href="2023/HATJikkenStyle.css"
       charset="UTF-8"
     />
   </head>
@@ -30,16 +30,16 @@
 <div id="header">
 <a href="top/top.html"><img src="common/figure/theme.png"  alt="About" /></a>
 <ul>
-	<li><a href="2022/jikken.html">2019</a></li>
+	<li><a href="2023/jikken.html">2019</a></li>
 	<li><a href="http://www.roboken.esys.tsukuba.ac.jp/">知能ロボット研究室</a></li>
 </ul>
 </div>
 -->
 
     <div id="outline">
-      <p>2022年度 情報科学類 ソフトウェアサイエンス実験B</p>
+      <p>2023年度 情報科学類 ソフトウェアサイエンス実験B</p>
       <h1>
-        <a href="2022/jikken.html">移動ロボットの行動プログラミング</a
+        <a href="2023/jikken.html">移動ロボットの行動プログラミング</a
         ><br />実験マニュアル
       </h1>
 
@@ -118,10 +118,9 @@ $ catkin_make
       <div class="source_code">
 <pre>
 (端末1) $ roscore
-(端末2) $ ypspur-coordinator -p researches/programs/platform/yp-robot-params/robot-params/***.param -d /dev/ttyACM0 (or /dev/ttyACM1)
-(端末3) $ rosrun urg_node urg_node _serial_port:=/dev/ttyACM1 (or /dev/ttyACM1)
-(端末4) $ rosrun ypspur_ros_bridge ypspur_ros_bridge
-(端末5) $ rosrun coins_jikken sample1
+(端末2) $ rosrun ypspur_ros ypspur_ros param_file:=/home/student1/researches/programs/platform/yp-robot-params/robot-params/***.param port:=/dev/serial/by-id/usb-T-frog_project_T-frog_Driver-if00
+(端末3) $ rosrun urg_node urg_node _serial_port:=/dev/serial/by-id/usb-Hokuyo_Data_Flex_for_USB_URG-Series_USB_Driver-if00
+(端末4) $ rosrun coins_jikken sample1
 
 (補足)
 ***.paramは beego.param or speego.param or M1.param 
@@ -298,7 +297,7 @@ $ s
 	<li><a href="top/top.html">top</a></li>
 	<li><a href="profile/profile.html">profile</a></li>
 	<li><a href="research/research.html">research</a></li>
-	<li><a href="2022/jikken.html">2019</a></li>
+	<li><a href="2023/jikken.html">2019</a></li>
 	<li><a href="http://www.roboken.esys.tsukuba.ac.jp">知能ロボット研究室</a></li>
 </ul>
 Copyright &copy 2014 Kohei HATTORI All Rights Reserved.

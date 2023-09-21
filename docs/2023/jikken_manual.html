@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ja-JP" xml:lang="ja-JP">
   <head>
-    <title>移動ロボットの行動プログラミング - 中間課題</title>
+    <title>移動ロボットの行動プログラミング - 実験マニュアル</title>
     <base href="../" />
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     <meta http-equiv="content-script-type" content="text/javascript" />
@@ -51,27 +51,26 @@
       <h2>概要</h2>
 
       <p>
-        本実験では主に(~/catkin_ws/src/coins_jikken/coins_jikken/src)の中のプログラムをいじってもらいます。
-        <br />
-        必要に応じて新しい命令を追加するために(~/catkin_ws/src/coins_jikken/beego_controller)に変更を加えてください。
+        本実験では主に(~/catkin_ws/src)の中のプログラムをいじってもらいます。
       </p>
 
       <h2>課題のやり方</h2>
 
-      <p>サンプルコード これを参考に課題をすすめる (穴埋めあり)</p>
+      <p>入門課題 ここにあるディレクトリを使用します </p>
       <div class="source_code">
         <pre>
-~/catkin_ws/src/coins_jikken/coins_jikken/sample
-    |-  sample1.cpp
-        sample2.cpp
-        sample3.cpp
+~/catkin_ws/src
+    |-  pubish_joy_state
+        joy_to_cmd
+        odom_test
+        ︙
         </pre>
       </div>
 
-      <p>課題コード ここに記述して実験してください</p>
+      <p>中間課題、最終課題 ここに記述して実験してください</p>
       <div class="source_code">
         <pre>
-~/catkin_ws/src/coins_jikken/coins_jikken/src
+~/catkin_ws/src/coins_jikken/src
     |-  mid_assignment1.cpp	中間課題１
         mid_assignment2.cpp	中間課題2
         fin_assignment.cpp	最終課題
@@ -120,7 +119,7 @@ $ catkin_make
 (端末1) $ roscore
 (端末2) $ rosrun ypspur_ros ypspur_ros param_file:=/home/student1/researches/programs/platform/yp-robot-params/robot-params/***.param port:=/dev/serial/by-id/usb-T-frog_project_T-frog_Driver-if00
 (端末3) $ rosrun urg_node urg_node _serial_port:=/dev/serial/by-id/usb-Hokuyo_Data_Flex_for_USB_URG-Series_USB_Driver-if00
-(端末4) $ rosrun coins_jikken sample1
+(端末4) $ rosrun coins_jikken 〇〇
 
 (補足)
 ***.paramは beego.param or speego.param or M1.param 
@@ -164,8 +163,7 @@ arg name="Y" value="0.0" <-- ロボットの向き 後ろを向きたいなら0.
           <div class="source_code">
             <pre>
 src
-|-  beg_assignment.cpp  入門課題
-    mid_assignment.cpp  中間課題
+|-  mid_assignment.cpp  中間課題
     fin_assignment.cpp  最終課題
     cha_assignment.cpp  挑戦課題
     test_coins.cpp      新しく作成したノード
@@ -202,34 +200,12 @@ $ rosrun coins_jikken test_coins_node
       </ul>
 
       <h2>Tips</h2>
-
-      <h3>Stage</h3>
-
-      <p>
-        Gazebo、実機の他にStageというシミュレータがある。<br />
-        sample2,3をやる際に利用できるかもしれない。
-      </p>
-      <div class="source_code">
-        <pre>
-$ roslaunch coins_jikken stage.launch
-$ roslaunch coins_jikken teleop_key.launch
-    </pre
-        >
-      </div>
-
       <h3>terminator</h3>
 
       <p>
         コマンドを実行するためのコマンドラインインターフェース。同じウィンドウ内で画面を複数分割できるため便利。
+        好きなレイアウトを設定したら、その設定を保存できる。
       </p>
-      <div class="source_code">
-        <pre>
-$ sudo apt install terminator
-インストール
-    </pre
-        >
-      </div>
-      <p>好きなレイアウトを設定したら、その設定を保存できる。</p>
       <div class="source_code">
         <pre>
 1. ターミナルを右クリック

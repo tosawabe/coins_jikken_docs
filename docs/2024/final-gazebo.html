@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja-JP" xml:lang="ja-JP">
+
+
+<head>
+    <title>移動ロボットの行動プログラミング - 最終課題(Gazebo)</title>
+    <base href="../">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="content-script-type" content="text/javascript" />
+    <meta http-equiv="content-style-type" content="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="common/HATstyle.css" charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="2023/HATJikkenStyle.css" charset="UTF-8" />
+</head>
+
+<body>
+
+    <!--
+<div id="header">
+<a href="top/top.html"><img src="common/figure/theme.png"  alt="About" /></a>
+<ul>
+	<li><a href="2016/jikken.html">2016</a></li>
+	<li><a href="http://www.roboken.esys.tsukuba.ac.jp/">知能ロボット研究室</a></li>
+</ul>
+</div>
+-->
+
+    <div id="outline">
+        <p>2023年度 情報科学類 ソフトウェアサイエンス実験B</p>
+        <h1><a href="2023/jikken.html">移動ロボットの行動プログラミング</a><br />最終課題(Gazebo)</h1>
+
+        <h2>課題 「ゴールの車庫を目指そう」</h2>
+
+        <ol>
+            <li>初期位置から壁の後方へ走行する.
+                初期位置は図に示した範囲内で無作為に決定される.</li>
+            <li>障害物のないほうのゲートを通って前進する
+                ゲートはA,~Aのどちらかに障害物があり, 無作為に決定される</li>
+            <li>お邪魔山彦を避け,再びゲートを通る.</li>
+            <li>探索エリア内にあるポールの数を認識する.
+                探索エリア内にはポーツが0~3個無作為に置かれる.</li>
+            <li>ポールの数が偶数なら車庫A, 奇数なら車庫Bに入る.
+                車庫からロボットがはみ出さないこと.</li>
+        </ol>
+
+        <div class="figure_gazebo"><img src="common/img/final_gazebo_world.jpg" />Fig. 1: Gazeboの実験環境</div>
+
+        <h3>注意事項</h3>
+
+        <ul>
+            <li>外界センサはロボットに搭載された測域センサのみを使用する.</li>
+            <li>設置された板およびポールは動かしてはいけない.</li>
+            <li>環境中には決められた経路を速度0.3[m/s]で往復する1台のおじゃま山彦が存在する.おじゃま山彦に必要以上に接触した場合は失敗.</li>
+            <li>実機で動かした場合を考慮し,緊急時にも止められるような速度で動かすこと.</li>
+        </ul>
+
+        <h2>実験方法</h2>
+        <p>
+            最終課題用のGazeboのワールドを起動<br>
+            beegoも同時に召喚される
+        </p>
+        <div class="source_code">
+            <pre>
+(端末1) $ roslaunch coins_jikken final_world.launch
+    </pre>
+        </div>
+        <p>beegoの初期姿勢をランダムに変更</p>
+        <div class="source_code">
+            <pre>
+(端末2) $ roslaunch coins_jikken final_world_reset.launch
+    </pre>
+        </div>
+        <p>最終課題の命令を実行</p>
+        <div class="source_code">
+            <pre>
+(端末3) $ rosrun coins_jikken fin_assignment
+    </pre>
+        </div>
+
+
+        <h2>備考</h2>
+        <ul>
+        </ul>
+
+    </div>
+
+    <!--  
+<div id="footer">
+<ul>
+	<li><a href="top/top.html">top</a></li>
+	<li><a href="profile/profile.html">profile</a></li>
+	<li><a href="research/research.html">research</a></li>
+	<li><a href="2016/jikken.html">2016</a></li>
+	<li><a href="http://www.roboken.esys.tsukuba.ac.jp">知能ロボット研究室</a></li>
+</ul>
+Copyright &copy 2014 Kohei HATTORI All Rights Reserved.
+</div><!-- /footer -->
+
+</body>
+
+</html>
